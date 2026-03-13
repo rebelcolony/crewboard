@@ -42,7 +42,7 @@ gem "image_processing", "~> 1.2"
 
 # Stripe payments via Pay gem [https://github.com/pay-rails/pay]
 gem "pay", "~> 9.0"
-gem "stripe", "~> 13.0"
+gem "stripe", "~> 18.4"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
