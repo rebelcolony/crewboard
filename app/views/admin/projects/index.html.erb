@@ -1,0 +1,32 @@
+<div class="page-header">
+  <h1>Projects</h1>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Account</th>
+      <th>Location</th>
+      <th>Status</th>
+      <th>Progress</th>
+      <th>Crew</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= link_to project.name, admin_project_path(project) %></td>
+        <td><%= link_to project.account.name, admin_account_path(project.account) %></td>
+        <td class="text-secondary"><%= project.location %></td>
+        <td><span class="badge badge-<%= project.status_color %>"><%= project.status.humanize %></span></td>
+        <td><%= project.progress %>%</td>
+        <td><%= project.crew_members.size %></td>
+        <td class="table-actions">
+          <%= link_to "Edit", edit_admin_project_path(project), class: "btn btn-sm btn-secondary" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

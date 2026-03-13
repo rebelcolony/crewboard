@@ -1,0 +1,50 @@
+<div class="page-header">
+  <h1><%= @account.name %></h1>
+  <%= link_to "Edit", edit_admin_account_path(@account), class: "btn btn-secondary" %>
+</div>
+
+<div class="card" style="margin-bottom: 1.5rem;">
+  <div class="detail-row">
+    <span class="detail-label">Subdomain</span>
+    <span><%= @account.subdomain.presence || "—" %></span>
+  </div>
+  <div class="detail-row">
+    <span class="detail-label">Plan</span>
+    <span class="badge badge-accent"><%= @account.plan %></span>
+  </div>
+  <div class="detail-row">
+    <span class="detail-label">Created</span>
+    <span><%= @account.created_at.strftime("%b %d, %Y at %H:%M") %></span>
+  </div>
+</div>
+
+<h2 style="margin-bottom: 1rem;">Managers (<%= @account.managers.count %>)</h2>
+<table class="table">
+  <thead>
+    <tr><th>Email</th><th>Super Admin</th></tr>
+  </thead>
+  <tbody>
+    <% @account.managers.each do |manager| %>
+      <tr>
+        <td><%= link_to manager.email_address, admin_manager_path(manager) %></td>
+        <td><%= manager.super_admin? ? "Yes" : "No" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2 style="margin: 1.5rem 0 1rem;">Projects (<%= @account.projects.count %>)</h2>
+<table class="table">
+  <thead>
+    <tr><th>Name</th><th>Status</th><th>Progress</th></tr>
+  </thead>
+  <tbody>
+    <% @account.projects.each do |project| %>
+      <tr>
+        <td><%= link_to project.name, admin_project_path(project) %></td>
+        <td><span class="badge badge-<%= project.status_color %>"><%= project.status.humanize %></span></td>
+        <td><%= project.progress %>%</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,11 @@
+admin_session:
+  manager: admin
+  token: "admin_token_abc123"
+  ip_address: "127.0.0.1"
+  user_agent: "TestBrowser/1.0"
+
+regular_session:
+  manager: regular
+  token: "regular_token_abc123"
+  ip_address: "127.0.0.1"
+  user_agent: "TestBrowser/1.0"

@@ -1,0 +1,32 @@
+<div class="dashboard">
+  <div class="dashboard-grid">
+    <% @projects.each do |project| %>
+      <%= render "projects/project_card", project: project %>
+    <% end %>
+
+    <% if @projects.empty? %>
+      <div class="dashboard-empty">
+        <p>No projects yet.</p>
+        <%= link_to "Create your first project", new_project_path, class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div id="unassigned-crew"
+       class="unassigned-bar"
+       data-controller="drop-target"
+       data-drop-target-project-id-value=""
+       data-action="dragover->drop-target#dragover dragleave->drop-target#dragleave drop->drop-target#drop">
+    <h3 class="unassigned-bar-title">Unassigned Crew (<%= @unassigned_crew.size %>)</h3>
+    <div class="unassigned-bar-crew">
+      <% @unassigned_crew.each do |member| %>
+        <%= render "crew_members/crew_avatar", member: member %>
+      <% end %>
+      <% if @unassigned_crew.empty? %>
+        <p class="text-secondary">All crew members assigned</p>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= turbo_frame_tag "modal" %>

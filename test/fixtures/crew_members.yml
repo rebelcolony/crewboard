@@ -1,0 +1,23 @@
+callum:
+  name: "Callum MacLeod"
+  role: "Lead Inspector"
+  email: "callum.macleod@crewboard.com"
+  phone: "+44 7700 100001"
+  project: forties
+  account: aberdeen
+
+unassigned_isla:
+  name: "Isla Campbell"
+  role: "NDT Technician"
+  email: "isla.campbell@crewboard.com"
+  phone: "+44 7700 100002"
+  project:
+  account: aberdeen
+
+other_crew:
+  name: "Jake Williams"
+  role: "Subsea Inspector"
+  email: "jake.williams@gulfcoast.com"
+  phone: "+1 555 100003"
+  project: other_project
+  account: other_tenant

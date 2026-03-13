@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= content_for(:title) || "Admin — CrewBoard" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body data-controller="theme">
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <%= link_to "CrewBoard", root_path, class: "navbar-logo" %>
+        <span class="admin-badge">Admin</span>
+      </div>
+
+      <div class="navbar-links">
+        <%= link_to "Back to App", root_path, class: "navbar-link" %>
+      </div>
+
+      <div class="navbar-actions">
+        <button class="theme-toggle" data-action="click->theme#toggle" data-theme-target="button" title="Toggle theme">
+          <span class="theme-toggle-icon" data-theme-target="icon"></span>
+        </button>
+
+        <%= button_to "Sign Out", session_path, method: :delete, class: "btn btn-sm btn-secondary" %>
+      </div>
+    </nav>
+
+    <div class="admin-layout">
+      <aside class="admin-sidebar">
+        <%= link_to "Dashboard", admin_root_path, class: "admin-sidebar-link #{'active' if controller_name == 'dashboard'}" %>
+        <%= link_to "Accounts", admin_accounts_path, class: "admin-sidebar-link #{'active' if controller_name == 'accounts'}" %>
+        <%= link_to "Managers", admin_managers_path, class: "admin-sidebar-link #{'active' if controller_name == 'managers'}" %>
+        <%= link_to "Projects", admin_projects_path, class: "admin-sidebar-link #{'active' if controller_name == 'projects'}" %>
+        <%= link_to "Crew Members", admin_crew_members_path, class: "admin-sidebar-link #{'active' if controller_name == 'crew_members'}" %>
+        <%= link_to "Subscriptions", admin_subscriptions_path, class: "admin-sidebar-link #{'active' if controller_name == 'subscriptions'}" %>
+      </aside>
+
+      <main class="admin-main">
+        <% if flash[:notice] %>
+          <div class="alert alert-success"><%= flash[:notice] %></div>
+        <% end %>
+        <% if flash[:alert] %>
+          <div class="alert alert-danger"><%= flash[:alert] %></div>
+        <% end %>
+
+        <%= yield %>
+      </main>
+    </div>
+  </body>
+</html>

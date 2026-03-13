@@ -1,0 +1,27 @@
+<%= turbo_frame_tag dom_id(project) do %>
+  <div class="project-card"
+       data-controller="drop-target"
+       data-drop-target-project-id-value="<%= project.id %>"
+       data-action="dragover->drop-target#dragover dragleave->drop-target#dragleave drop->drop-target#drop">
+
+    <%= link_to project_path(project), class: "project-card-link", data: { turbo_frame: "modal" } do %>
+      <h3 class="project-card-name"><%= project.name %></h3>
+      <p class="project-card-location"><%= project.location %></p>
+
+      <div class="project-card-status">
+        <span class="badge badge-<%= project.status_color %>"><%= project.status&.humanize || "Not set" %></span>
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-bar-fill progress-bar-<%= project.status_color %>" style="width: <%= project.progress %>%"></div>
+      </div>
+      <span class="project-card-progress-text"><%= project.progress %>%</span>
+    <% end %>
+
+    <div class="project-card-crew">
+      <% project.crew_members.each do |member| %>
+        <%= render "crew_members/crew_avatar", member: member %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,37 @@
+<div class="page-header">
+  <h1>Projects</h1>
+  <%= link_to "New Project", new_project_path, class: "btn btn-primary" %>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Status</th>
+      <th>Progress</th>
+      <th>Crew</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= project.name %></td>
+        <td><%= project.location %></td>
+        <td><span class="badge badge-<%= project.status_color %>"><%= project.status.humanize %></span></td>
+        <td>
+          <div class="progress-bar-sm">
+            <div class="progress-bar-fill" style="width: <%= project.progress %>%"></div>
+          </div>
+          <span class="text-secondary text-sm"><%= project.progress %>%</span>
+        </td>
+        <td><%= project.crew_members.size %></td>
+        <td class="table-actions">
+          <%= link_to "Edit", edit_project_path(project), class: "btn btn-sm btn-secondary" %>
+          <%= button_to "Delete", project_path(project), method: :delete, class: "btn btn-sm btn-danger", data: { turbo_confirm: "Delete #{project.name}?" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

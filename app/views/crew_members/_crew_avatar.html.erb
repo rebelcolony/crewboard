@@ -1,0 +1,13 @@
+<div class="avatar"
+     draggable="true"
+     data-controller="draggable"
+     data-draggable-crew-member-id-value="<%= member.id %>"
+     data-action="dragstart->draggable#start dragend->draggable#end"
+     title="<%= member.name %> — <%= member.role %>">
+  <img src="<%= member.avatar_url(size: 80) %>"
+       alt="<%= member.name %>"
+       class="avatar-img"
+       loading="lazy"
+       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+  <span class="avatar-initials" style="display: none;"><%= member.initials %></span>
+</div>

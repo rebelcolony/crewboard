@@ -1,0 +1,40 @@
+<div class="page-header">
+  <h1>Subscriptions</h1>
+</div>
+
+<% if @subscriptions.any? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Customer</th>
+        <th>Plan</th>
+        <th>Status</th>
+        <th>Processor</th>
+        <th>Created</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @subscriptions.each do |subscription| %>
+        <tr>
+          <td><%= subscription.customer.owner.try(:name) || subscription.customer.owner_type %></td>
+          <td><%= subscription.name %></td>
+          <td>
+            <span class="badge badge-<%= subscription.active? ? 'success' : 'secondary' %>">
+              <%= subscription.status %>
+            </span>
+          </td>
+          <td class="text-secondary"><%= subscription.processor_plan %></td>
+          <td class="text-secondary text-sm"><%= subscription.created_at.strftime("%b %d, %Y") %></td>
+          <td class="table-actions">
+            <%= link_to "View", admin_subscription_path(subscription), class: "btn btn-sm btn-secondary" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="card" style="text-align: center; padding: 3rem;">
+    <p class="text-secondary">No subscriptions yet.</p>
+  </div>
+<% end %>

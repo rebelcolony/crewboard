@@ -1,0 +1,64 @@
+<div class="auth-container" style="max-width: 900px;">
+  <h1 style="text-align: center; margin-bottom: 0.5rem;">Choose Your Plan</h1>
+  <p style="text-align: center; color: var(--color-text-secondary); margin-bottom: 2rem;">
+    Start free, upgrade when you're ready.
+  </p>
+
+  <div class="pricing-grid">
+    <div class="card pricing-card">
+      <div class="pricing-card-header">
+        <h3>Starter</h3>
+        <div class="pricing-price">$29<span class="pricing-period">/mo</span></div>
+      </div>
+      <ul class="pricing-features">
+        <li>Up to 3 projects</li>
+        <li>Up to 15 crew members</li>
+        <li>Dashboard view</li>
+        <li>Drag & drop assignments</li>
+      </ul>
+      <% if authenticated? %>
+        <%= button_to "Subscribe", checkouts_path, params: { plan: "starter" }, class: "btn btn-secondary btn-full" %>
+      <% else %>
+        <%= link_to "Get Started", new_registration_path, class: "btn btn-secondary btn-full" %>
+      <% end %>
+    </div>
+
+    <div class="card pricing-card pricing-card-featured">
+      <div class="badge badge-accent" style="margin-bottom: 0.75rem;">Most Popular</div>
+      <div class="pricing-card-header">
+        <h3>Pro</h3>
+        <div class="pricing-price">$79<span class="pricing-period">/mo</span></div>
+      </div>
+      <ul class="pricing-features">
+        <li>Unlimited projects</li>
+        <li>Unlimited crew members</li>
+        <li>Dashboard view</li>
+        <li>Drag & drop assignments</li>
+        <li>Priority support</li>
+      </ul>
+      <% if authenticated? %>
+        <%= button_to "Subscribe", checkouts_path, params: { plan: "pro" }, class: "btn btn-primary btn-full" %>
+      <% else %>
+        <%= link_to "Get Started", new_registration_path, class: "btn btn-primary btn-full" %>
+      <% end %>
+    </div>
+
+    <div class="card pricing-card">
+      <div class="pricing-card-header">
+        <h3>Enterprise</h3>
+        <div class="pricing-price">Custom</div>
+      </div>
+      <ul class="pricing-features">
+        <li>Everything in Pro</li>
+        <li>SSO / SAML</li>
+        <li>Dedicated support</li>
+        <li>Custom integrations</li>
+      </ul>
+      <%= link_to "Contact Us", "mailto:sales@crewboard.com", class: "btn btn-secondary btn-full" %>
+    </div>
+  </div>
+
+  <p style="text-align: center; margin-top: 2rem; font-size: 0.875rem; color: var(--color-text-secondary);">
+    Already have an account? <%= link_to "Sign in", new_session_path %>
+  </p>
+</div>

@@ -1,0 +1,22 @@
+<div class="page-header">
+  <h1><%= @crew_member.name %></h1>
+</div>
+
+<div class="card">
+  <div class="detail-row">
+    <span class="detail-label">Role</span>
+    <span><%= @crew_member.role %></span>
+  </div>
+  <div class="detail-row">
+    <span class="detail-label">Email</span>
+    <span><%= @crew_member.email %></span>
+  </div>
+  <div class="detail-row">
+    <span class="detail-label">Phone</span>
+    <span><%= @crew_member.phone %></span>
+  </div>
+  <div class="detail-row">
+    <span class="detail-label">Project</span>
+    <span><%= @crew_member.project&.name || "Unassigned" %></span>
+  </div>
+</div>

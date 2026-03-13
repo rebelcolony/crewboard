@@ -1,0 +1,28 @@
+<div class="page-header">
+  <h1>Crew Members</h1>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Role</th>
+      <th>Account</th>
+      <th>Project</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @crew_members.each do |crew_member| %>
+      <tr>
+        <td><%= link_to crew_member.name, admin_crew_member_path(crew_member) %></td>
+        <td class="text-secondary"><%= crew_member.role %></td>
+        <td><%= link_to crew_member.account.name, admin_account_path(crew_member.account) %></td>
+        <td><%= crew_member.project ? link_to(crew_member.project.name, admin_project_path(crew_member.project)) : "Unassigned" %></td>
+        <td class="table-actions">
+          <%= link_to "Edit", edit_admin_crew_member_path(crew_member), class: "btn btn-sm btn-secondary" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

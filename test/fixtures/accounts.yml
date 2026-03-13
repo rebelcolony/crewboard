@@ -1,0 +1,9 @@
+aberdeen:
+  name: "Aberdeen Offshore Inspections"
+  subdomain: "aberdeen"
+  plan: "free"
+
+other_tenant:
+  name: "Gulf Coast Inspections"
+  subdomain: "gulfcoast"
+  plan: "free"

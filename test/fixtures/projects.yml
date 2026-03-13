@@ -1,0 +1,29 @@
+forties:
+  name: "Forties Alpha Inspection"
+  description: "Annual structural integrity inspection of Forties Alpha platform."
+  location: "North Sea — Forties Field"
+  status: 1
+  progress: 65
+  start_date: "2026-02-01"
+  target_end_date: "2026-04-15"
+  account: aberdeen
+
+brent:
+  name: "Brent Delta Decommissioning"
+  description: "Phase 2 decommissioning survey."
+  location: "North Sea — Brent Field"
+  status: 3
+  progress: 100
+  start_date: "2025-10-01"
+  target_end_date: "2026-01-31"
+  account: aberdeen
+
+other_project:
+  name: "Deepwater Horizon Survey"
+  description: "Gulf inspection project."
+  location: "Gulf of Mexico"
+  status: 0
+  progress: 0
+  start_date: "2026-05-01"
+  target_end_date: "2026-08-01"
+  account: other_tenant

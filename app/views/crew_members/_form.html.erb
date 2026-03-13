@@ -1,0 +1,46 @@
+<%= form_with model: crew_member, class: "form" do |f| %>
+  <% if crew_member.errors.any? %>
+    <div class="alert alert-danger">
+      <% crew_member.errors.full_messages.each do |msg| %>
+        <p><%= msg %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :role %>
+    <%= f.text_field :role, placeholder: "e.g. Lead Inspector, NDT Technician" %>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.email_field :email %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :phone %>
+      <%= f.tel_field :phone %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :project_id, "Assigned Project" %>
+    <%= f.collection_select :project_id, Project.order(:name), :id, :name, { include_blank: "Unassigned" } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :avatar %>
+    <%= f.file_field :avatar, accept: "image/*" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit class: "btn btn-primary" %>
+    <%= link_to "Cancel", crew_members_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>

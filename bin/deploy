@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+DESTINATION="${1:?Usage: bin/deploy <staging|production>}"
+
+if [[ "$DESTINATION" != "staging" && "$DESTINATION" != "production" ]]; then
+  echo "Error: destination must be 'staging' or 'production'"
+  exit 1
+fi
+
+echo "Deploying CrewBoard to ${DESTINATION}..."
+kamal deploy -d "$DESTINATION"
+echo "Deploy to ${DESTINATION} complete."

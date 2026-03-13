@@ -1,0 +1,39 @@
+<div class="page-header">
+  <h1>Subscription Details</h1>
+  <%= link_to "Back", admin_subscriptions_path, class: "btn btn-secondary" %>
+</div>
+
+<div class="card">
+  <div class="detail-row">
+    <span class="detail-label">Customer</span>
+    <span><%= @subscription.customer.owner.try(:name) || @subscription.customer.owner_type %></span>
+  </div>
+  <div class="detail-row">
+    <span class="detail-label">Plan</span>
+    <span><%= @subscription.name %></span>
+  </div>
+  <div class="detail-row">
+    <span class="detail-label">Status</span>
+    <span class="badge badge-<%= @subscription.active? ? 'success' : 'secondary' %>"><%= @subscription.status %></span>
+  </div>
+  <div class="detail-row">
+    <span class="detail-label">Processor</span>
+    <span><%= @subscription.processor_plan %></span>
+  </div>
+  <div class="detail-row">
+    <span class="detail-label">Created</span>
+    <span><%= @subscription.created_at.strftime("%b %d, %Y at %H:%M") %></span>
+  </div>
+  <% if @subscription.trial_ends_at %>
+    <div class="detail-row">
+      <span class="detail-label">Trial Ends</span>
+      <span><%= @subscription.trial_ends_at.strftime("%b %d, %Y") %></span>
+    </div>
+  <% end %>
+  <% if @subscription.ends_at %>
+    <div class="detail-row">
+      <span class="detail-label">Ends At</span>
+      <span><%= @subscription.ends_at.strftime("%b %d, %Y") %></span>
+    </div>
+  <% end %>
+</div>
