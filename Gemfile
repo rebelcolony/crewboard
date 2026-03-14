@@ -41,7 +41,7 @@ gem "thruster", require: false
 gem "image_processing", "~> 1.2"
 
 # Stripe payments via Pay gem [https://github.com/pay-rails/pay]
-gem "pay", "~> 9.0"
+gem "pay", "~> 11.4"
 gem "stripe", "~> 13.0"
 
 group :development, :test do

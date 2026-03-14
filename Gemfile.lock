@@ -238,8 +238,8 @@ GEM
     parser (3.3.10.2)
       ast (~> 2.4.1)
       racc
-    pay (9.0.1)
-      rails (>= 6.0.0)
+    pay (11.4.3)
+      rails (>= 7.0.0)
     pg (1.6.3)
     pg (1.6.3-aarch64-linux)
     pg (1.6.3-aarch64-linux-musl)
@@ -437,7 +437,7 @@ DEPENDENCIES
   kamal
   letter_opener_web
   mocha
-  pay (~> 9.0)
+  pay (~> 11.4)
   pg (~> 1.1)
   propshaft
   puma (>= 5.0)
