@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+</head>
+<body>
+  <h2>Your <%= @plan.capitalize %> plan is active!</h2>
+
+  <p>Hi <%= @manager.email_address %>,</p>
+
+  <p>Great news — your <strong><%= @plan.capitalize %></strong> subscription for <strong><%= @account.name %></strong> is now active.</p>
+
+  <% case @plan %>
+  <% when "starter" %>
+    <p>You now have access to up to <strong>10 projects</strong>.</p>
+  <% when "pro" %>
+    <p>You now have <strong>unlimited projects</strong>. No limits!</p>
+  <% end %>
+
+  <p>You can manage your subscription any time from your <%= link_to "Billing page", billing_url %>.</p>
+
+  <p>Thanks for supporting CrewBoard!</p>
+
+  <p>— The CrewBoard Team</p>
+</body>
+</html>

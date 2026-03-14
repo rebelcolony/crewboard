@@ -7,8 +7,8 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   def system_sign_in(email: "admin@crewboard.com", password: "password123")
     visit new_session_path
-    fill_in "Email address", with: email
+    fill_in "Email", with: email
     fill_in "Password", with: password
-    click_on "Sign in"
+    click_on "Sign In"
   end
 end

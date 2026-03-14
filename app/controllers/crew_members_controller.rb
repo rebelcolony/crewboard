@@ -9,10 +9,18 @@ class CrewMembersController < ApplicationController
   end
 
   def new
+    if Current.account.crew_member_limit_reached?
+      redirect_to pricing_path, alert: "You've reached the #{Current.account.crew_member_limit}-member limit on your plan. Upgrade to add more."
+      return
+    end
     @crew_member = CrewMember.new
   end
 
   def create
+    if Current.account.crew_member_limit_reached?
+      redirect_to pricing_path, alert: "You've reached the #{Current.account.crew_member_limit}-member limit on your plan. Upgrade to add more."
+      return
+    end
     @crew_member = Current.account.crew_members.new(crew_member_params)
     if @crew_member.save
       redirect_to crew_members_path, notice: "Crew member added."

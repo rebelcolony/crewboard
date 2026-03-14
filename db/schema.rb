@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_12_193406) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_14_172106) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -34,6 +34,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_12_193406) do
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_crew_members_on_account_id"
     t.index ["project_id"], name: "index_crew_members_on_project_id"
+  end
+
+  create_table "invites", force: :cascade do |t|
+    t.datetime "accepted_at"
+    t.bigint "account_id", null: false
+    t.datetime "created_at", null: false
+    t.string "email"
+    t.bigint "invited_by_id", null: false
+    t.string "token"
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_invites_on_account_id"
+    t.index ["invited_by_id"], name: "index_invites_on_invited_by_id"
+    t.index ["token"], name: "index_invites_on_token", unique: true
   end
 
   create_table "managers", force: :cascade do |t|
@@ -170,6 +183,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_12_193406) do
 
   add_foreign_key "crew_members", "accounts"
   add_foreign_key "crew_members", "projects"
+  add_foreign_key "invites", "accounts"
+  add_foreign_key "invites", "managers", column: "invited_by_id"
   add_foreign_key "managers", "accounts"
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_charges", "pay_subscriptions", column: "subscription_id"

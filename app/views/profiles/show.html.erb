@@ -1,0 +1,145 @@
+<div class="page-header">
+  <h1>Profile & Settings</h1>
+</div>
+
+<div class="profile-grid">
+  <%# Profile / Email %>
+  <div class="card">
+    <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-user"></i> Profile</h3>
+
+    <%= form_with model: @manager, url: profile_path, method: :patch, class: "form" do |f| %>
+      <input type="hidden" name="section" value="profile">
+
+      <% if @manager.errors.any? && !@password_error && !@account_error %>
+        <div class="alert alert-danger">
+          <% @manager.errors.full_messages.each do |msg| %>
+            <p><%= msg %></p>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= f.label :email_address, "Email" %>
+        <%= f.email_field :email_address, required: true %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.submit "Update Email", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+
+  <%# Change Password %>
+  <div class="card">
+    <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-lock"></i> Change Password</h3>
+
+    <%= form_with url: profile_path, method: :patch, class: "form" do |f| %>
+      <input type="hidden" name="section" value="password">
+
+      <% if @password_error && @manager.errors.any? %>
+        <div class="alert alert-danger">
+          <% @manager.errors.full_messages.each do |msg| %>
+            <p><%= msg %></p>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="form-group" data-controller="password-visibility">
+        <%= f.label :current_password, "Current Password" %>
+        <div class="input-with-icon">
+          <%= f.password_field :current_password, required: true, data: { password_visibility_target: "input" } %>
+          <button type="button" class="input-icon-btn" data-action="click->password-visibility#toggle" aria-label="Toggle password visibility">
+            <svg data-password-visibility-target="showIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg data-password-visibility-target="hideIcon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group" data-controller="password-visibility">
+        <%= f.label "manager[password]", "New Password" %>
+        <div class="input-with-icon">
+          <%= f.password_field "manager[password]", placeholder: "Min 8 characters", required: true, data: { password_visibility_target: "input" } %>
+          <button type="button" class="input-icon-btn" data-action="click->password-visibility#toggle" aria-label="Toggle password visibility">
+            <svg data-password-visibility-target="showIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg data-password-visibility-target="hideIcon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group" data-controller="password-visibility">
+        <%= f.label "manager[password_confirmation]", "Confirm New Password" %>
+        <div class="input-with-icon">
+          <%= f.password_field "manager[password_confirmation]", required: true, data: { password_visibility_target: "input" } %>
+          <button type="button" class="input-icon-btn" data-action="click->password-visibility#toggle" aria-label="Toggle password visibility">
+            <svg data-password-visibility-target="showIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg data-password-visibility-target="hideIcon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <%= f.submit "Update Password", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+
+  <%# Account Settings %>
+  <div class="card">
+    <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-building"></i> Account Settings</h3>
+
+    <%= form_with model: @account, url: profile_path, method: :patch, class: "form" do |f| %>
+      <input type="hidden" name="section" value="account">
+
+      <% if @account_error && @account.errors.any? %>
+        <div class="alert alert-danger">
+          <% @account.errors.full_messages.each do |msg| %>
+            <p><%= msg %></p>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= f.label :name, "Company Name" %>
+        <%= f.text_field :name, required: true %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.submit "Update Company", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%# Active Sessions %>
+<div class="card" style="margin-top: 1.5rem;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+    <h3><i class="fa-solid fa-desktop"></i> Active Sessions</h3>
+    <% if @manager.sessions.count > 1 %>
+      <%= button_to "Sign Out All Others", profile_path(section: "sessions"), method: :patch, class: "btn btn-sm btn-danger" %>
+    <% end %>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>IP Address</th>
+        <th>Browser</th>
+        <th>Signed In</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @manager.sessions.order(created_at: :desc).each do |session| %>
+        <tr>
+          <td><%= session.ip_address %></td>
+          <td class="text-sm"><%= truncate(session.user_agent.to_s, length: 60) %></td>
+          <td><%= time_ago_in_words(session.created_at) %> ago</td>
+          <td class="table-actions">
+            <% if session == Current.session %>
+              <span class="badge badge-accent">Current</span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -21,7 +21,7 @@
       <tr>
         <td><%= link_to account.name, admin_account_path(account) %></td>
         <td class="text-secondary"><%= account.subdomain.presence || "—" %></td>
-        <td><span class="badge badge-accent"><%= account.plan %></span></td>
+        <td><span class="badge badge-accent"><%= account.plan_name.capitalize %></span></td>
         <td><%= account.managers.count %></td>
         <td><%= account.projects.count %></td>
         <td><%= account.crew_members.count %></td>

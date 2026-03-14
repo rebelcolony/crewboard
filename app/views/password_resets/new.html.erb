@@ -1,0 +1,27 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h1 class="auth-title">CrewBoard</h1>
+    <p class="auth-subtitle">Forgot your password?</p>
+
+    <% if flash[:alert] %>
+      <div class="alert alert-danger"><%= flash[:alert] %></div>
+    <% end %>
+
+    <p style="text-align: center; margin-bottom: 1.5rem; font-size: 0.875rem; color: var(--color-text-secondary);">
+      Enter your email and we'll send you a link to reset your password.
+    </p>
+
+    <%= form_with url: password_reset_path, class: "auth-form" do |f| %>
+      <div class="form-group">
+        <%= f.label :email_address, "Email" %>
+        <%= f.email_field :email_address, autofocus: true, required: true, placeholder: "manager@example.com" %>
+      </div>
+
+      <%= f.submit "Send Reset Link", class: "btn btn-primary btn-full" %>
+    <% end %>
+
+    <p style="text-align: center; margin-top: 1rem; font-size: 0.875rem; color: var(--color-text-secondary);">
+      Remember your password? <%= link_to "Sign in", new_session_path %>
+    </p>
+  </div>
+</div>

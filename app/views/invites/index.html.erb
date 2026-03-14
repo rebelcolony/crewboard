@@ -1,0 +1,89 @@
+<div class="page-header">
+  <h1><i class="fa-solid fa-users"></i> Team</h1>
+</div>
+
+<%# Invite Form %>
+<div class="card" style="margin-bottom: 1.5rem;">
+  <h3 style="margin-bottom: 1rem;">Invite a Team Member</h3>
+
+  <%= form_with model: @invite, url: invites_path, class: "form" do |f| %>
+    <% if @invite.errors.any? %>
+      <div class="alert alert-danger">
+        <% @invite.errors.full_messages.each do |msg| %>
+          <p><%= msg %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div style="display: flex; gap: 0.75rem; align-items: flex-end;">
+      <div class="form-group" style="flex: 1; margin-bottom: 0;">
+        <%= f.label :email, "Email Address" %>
+        <%= f.email_field :email, required: true, placeholder: "colleague@example.com" %>
+      </div>
+      <%= f.submit "Send Invite", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
+
+<%# Current Team Members %>
+<div class="card" style="margin-bottom: 1.5rem;">
+  <h3 style="margin-bottom: 1rem;">Members (<%= @managers.count %>)</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Joined</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @managers.each do |manager| %>
+        <tr>
+          <td>
+            <%= manager.email_address %>
+            <% if manager == Current.manager %>
+              <span class="badge badge-accent">You</span>
+            <% end %>
+          </td>
+          <td>
+            <% if manager.super_admin? %>
+              <span class="badge badge-warning">Admin</span>
+            <% else %>
+              <span class="badge badge-secondary">Member</span>
+            <% end %>
+          </td>
+          <td><%= manager.created_at.strftime("%b %d, %Y") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%# Pending Invites %>
+<% if @pending_invites.any? %>
+  <div class="card">
+    <h3 style="margin-bottom: 1rem;">Pending Invites (<%= @pending_invites.count %>)</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Sent</th>
+          <th>Invited By</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @pending_invites.each do |invite| %>
+          <tr>
+            <td><%= invite.email %></td>
+            <td><%= time_ago_in_words(invite.created_at) %> ago</td>
+            <td><%= invite.invited_by.email_address %></td>
+            <td class="table-actions">
+              <%= button_to "Revoke", invite_path(invite), method: :delete, class: "btn btn-sm btn-danger" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

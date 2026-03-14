@@ -28,7 +28,13 @@ module Authentication
       ip_address: request.remote_ip,
       user_agent: request.user_agent
     )
-    cookies.signed.permanent[:session_token] = { value: session.token, httponly: true, same_site: :lax }
+    cookies.signed[:session_token] = {
+      value: session.token,
+      httponly: true,
+      same_site: :lax,
+      secure: Rails.env.production?,
+      expires: 30.days.from_now
+    }
     session
   end
 

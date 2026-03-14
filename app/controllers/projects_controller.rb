@@ -13,10 +13,18 @@ class ProjectsController < ApplicationController
   end
 
   def new
+    if Current.account.project_limit_reached?
+      redirect_to pricing_path, alert: "You've reached the #{Current.account.project_limit}-project limit on your plan. Upgrade to add more."
+      return
+    end
     @project = Project.new
   end
 
   def create
+    if Current.account.project_limit_reached?
+      redirect_to pricing_path, alert: "You've reached the #{Current.account.project_limit}-project limit on your plan. Upgrade to add more."
+      return
+    end
     @project = Current.account.projects.new(project_params)
     if @project.save
       redirect_to projects_path, notice: "Project created."
@@ -30,9 +38,18 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      redirect_to projects_path, notice: "Project updated."
+      respond_to do |format|
+        format.turbo_stream {
+          @projects = Project.for_current_account.includes(:crew_members).order(:name)
+          @unassigned_crew = CrewMember.for_current_account.where(project_id: nil).order(:name)
+        }
+        format.html { redirect_to projects_path, notice: "Project updated." }
+      end
     else
-      render :edit, status: :unprocessable_entity
+      respond_to do |format|
+        format.turbo_stream { render :show, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_entity }
+      end
     end
   end
 

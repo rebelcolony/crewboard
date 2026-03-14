@@ -1,0 +1,9 @@
+<%= turbo_stream.update "modal" do %>
+  <%= render "projects/show_modal", project: @project %>
+<% end %>
+
+<% @projects.each do |project| %>
+  <%= turbo_stream.replace dom_id(project) do %>
+    <%= render "projects/project_card", project: project %>
+  <% end %>
+<% end %>

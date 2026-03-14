@@ -1,0 +1,48 @@
+<% account = Current.account %>
+<div class="usage-bar">
+  <div class="usage-indicator">
+    <div class="usage-header">
+      <span class="usage-label">Projects</span>
+      <span class="usage-count">
+        <%= account.projects.count %><% if account.project_limit %> / <%= account.project_limit %><% end %>
+      </span>
+    </div>
+    <% if account.project_limit %>
+      <div class="progress-bar-sm">
+        <div class="progress-bar-fill <%= usage_bar_color(account.project_usage_percent) %>" style="width: <%= account.project_usage_percent %>%"></div>
+      </div>
+      <% if account.project_limit_reached? %>
+        <span class="usage-warning">Limit reached — <%= link_to "Upgrade", pricing_path %></span>
+      <% elsif account.project_usage_percent >= 80 %>
+        <span class="usage-warning">Near limit — <%= link_to "Upgrade", pricing_path %></span>
+      <% end %>
+    <% else %>
+      <span class="usage-unlimited">Unlimited</span>
+    <% end %>
+  </div>
+
+  <div class="usage-indicator">
+    <div class="usage-header">
+      <span class="usage-label">Crew Members</span>
+      <span class="usage-count">
+        <%= account.crew_members.count %><% if account.crew_member_limit %> / <%= account.crew_member_limit %><% end %>
+      </span>
+    </div>
+    <% if account.crew_member_limit %>
+      <div class="progress-bar-sm">
+        <div class="progress-bar-fill <%= usage_bar_color(account.crew_member_usage_percent) %>" style="width: <%= account.crew_member_usage_percent %>%"></div>
+      </div>
+      <% if account.crew_member_limit_reached? %>
+        <span class="usage-warning">Limit reached — <%= link_to "Upgrade", pricing_path %></span>
+      <% elsif account.crew_member_usage_percent >= 80 %>
+        <span class="usage-warning">Near limit — <%= link_to "Upgrade", pricing_path %></span>
+      <% end %>
+    <% else %>
+      <span class="usage-unlimited">Unlimited</span>
+    <% end %>
+  </div>
+
+  <div class="usage-plan">
+    <span class="badge badge-<%= account.active_subscription? ? 'success' : 'secondary' %>"><%= account.plan_name.capitalize %></span>
+  </div>
+</div>

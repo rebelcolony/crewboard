@@ -1,0 +1,16 @@
+Hi <%= @manager.email_address %>,
+
+Great news — your <%= @plan.capitalize %> subscription for "<%= @account.name %>" is now active.
+
+<% case @plan -%>
+<% when "starter" -%>
+You now have access to up to 10 projects.
+<% when "pro" -%>
+You now have unlimited projects. No limits!
+<% end -%>
+
+You can manage your subscription any time from your Billing page: <%= billing_url %>
+
+Thanks for supporting CrewBoard!
+
+— The CrewBoard Team

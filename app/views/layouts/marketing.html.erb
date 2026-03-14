@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>CrewBoard — Offshore Crew Management Dashboard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Visual crew management for offshore inspections. See your projects, crews, and assignments at a glance.">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "application" %>
+  <%= javascript_importmap_tags %>
+</head>
+<body class="marketing-body">
+  <nav class="marketing-nav">
+    <div class="marketing-nav-inner">
+      <a href="<%= root_path %>" class="marketing-logo">CrewBoard</a>
+      <div class="marketing-nav-links">
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <%= link_to "Sign In", new_session_path, class: "btn btn-ghost" %>
+        <%= link_to "Get Started", new_registration_path, class: "btn btn-primary btn-sm" %>
+      </div>
+    </div>
+  </nav>
+
+  <%= yield %>
+
+  <footer class="marketing-footer">
+    <div class="marketing-container">
+      <div class="footer-links">
+        <%= link_to "Privacy", privacy_path %>
+        <%= link_to "Terms", terms_path %>
+        <%= link_to "Cookies", cookies_path %>
+        <a href="mailto:support@crew-board.io">Contact</a>
+      </div>
+      <p>&copy; <%= Date.current.year %> CrewBoard. Built for offshore inspection teams.</p>
+      <p class="footer-company">CrewBoard is a service offered by Rebel Colony Ltd, a company registered in Scotland (SC570568). 10 Knockbreak St, Tain, IV19 1BJ, United Kingdom.</p>
+    </div>
+  </footer>
+</body>
+</html>

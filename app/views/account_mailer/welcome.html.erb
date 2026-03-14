@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+</head>
+<body>
+  <h2>Welcome to CrewBoard!</h2>
+
+  <p>Hi <%= @manager.email_address %>,</p>
+
+  <p>Thanks for signing up! Your account <strong><%= @account.name %></strong> is ready to go.</p>
+
+  <p>Here's what you can do next:</p>
+  <ul>
+    <li>Create your first project from the dashboard</li>
+    <li>Add crew members and assign them to projects</li>
+    <li>Invite team members to collaborate</li>
+  </ul>
+
+  <p>You're on the <strong>Free</strong> plan with up to 2 projects. Need more? <%= link_to "View plans", pricing_url %>.</p>
+
+  <p>If you have any questions, just reply to this email.</p>
+
+  <p>— The CrewBoard Team</p>
+</body>
+</html>

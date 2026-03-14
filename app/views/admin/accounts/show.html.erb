@@ -10,7 +10,7 @@
   </div>
   <div class="detail-row">
     <span class="detail-label">Plan</span>
-    <span class="badge badge-accent"><%= @account.plan %></span>
+    <span class="badge badge-accent"><%= @account.plan_name.capitalize %></span>
   </div>
   <div class="detail-row">
     <span class="detail-label">Created</span>
@@ -26,7 +26,7 @@
   <tbody>
     <% @account.managers.each do |manager| %>
       <tr>
-        <td><%= link_to manager.email_address, admin_manager_path(manager) %></td>
+        <td><%= manager.email_address %></td>
         <td><%= manager.super_admin? ? "Yes" : "No" %></td>
       </tr>
     <% end %>
@@ -41,7 +41,7 @@
   <tbody>
     <% @account.projects.each do |project| %>
       <tr>
-        <td><%= link_to project.name, admin_project_path(project) %></td>
+        <td><%= project.name %></td>
         <td><span class="badge badge-<%= project.status_color %>"><%= project.status.humanize %></span></td>
         <td><%= project.progress %>%</td>
       </tr>

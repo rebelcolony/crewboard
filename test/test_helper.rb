@@ -1,6 +1,7 @@
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
+require "mocha/minitest"
 
 module ActiveSupport
   class TestCase
@@ -15,11 +16,7 @@ end
 # Sign-in helper for request (controller/integration) tests
 module SignInHelper
   def sign_in(manager)
-    session = manager.sessions.first || manager.sessions.create!(
-      ip_address: "127.0.0.1",
-      user_agent: "Test"
-    )
-    cookies.signed[:session_token] = session.token
+    post session_path, params: { email_address: manager.email_address, password: "password123" }
   end
 end
 

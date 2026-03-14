@@ -19,7 +19,20 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
         }
       }
     end
-    assert_redirected_to root_path
+    assert_redirected_to dashboard_path
+  end
+
+  test "POST create sends welcome email" do
+    assert_enqueued_emails 1 do
+      post registration_path, params: {
+        account: { name: "Email Test Co" },
+        manager: {
+          email_address: "welcome@example.com",
+          password: "password123",
+          password_confirmation: "password123"
+        }
+      }
+    end
   end
 
   test "POST create with invalid params re-renders form" do

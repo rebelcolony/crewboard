@@ -1,0 +1,144 @@
+<%# ── Hero ── %>
+<section class="hero">
+  <div class="marketing-container">
+    <h1 class="hero-headline">Your offshore crews,<br>one visual dashboard.</h1>
+    <p class="hero-subheadline">
+      CrewBoard gives project managers an at-a-glance view of every crew,
+      every project, every assignment &mdash; updated in real time.
+    </p>
+    <div class="hero-actions">
+      <%= link_to "Get Started Free", new_registration_path, class: "btn btn-primary btn-lg" %>
+      <a href="#features" class="btn btn-ghost btn-lg">See Features</a>
+    </div>
+    <div class="hero-preview">
+      <div class="hero-preview-card">
+        <div class="hero-preview-bar"></div>
+        <div class="hero-preview-dots">
+          <span class="dot dot-blue"></span>
+          <span class="dot dot-green"></span>
+          <span class="dot dot-amber"></span>
+        </div>
+      </div>
+      <div class="hero-preview-card">
+        <div class="hero-preview-bar short"></div>
+        <div class="hero-preview-dots">
+          <span class="dot dot-blue"></span>
+          <span class="dot dot-green"></span>
+        </div>
+      </div>
+      <div class="hero-preview-card">
+        <div class="hero-preview-bar long"></div>
+        <div class="hero-preview-dots">
+          <span class="dot dot-amber"></span>
+          <span class="dot dot-blue"></span>
+          <span class="dot dot-green"></span>
+          <span class="dot dot-blue"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%# ── Features ── %>
+<section class="features" id="features">
+  <div class="marketing-container">
+    <h2 class="section-title">Built for offshore inspection teams</h2>
+    <p class="section-subtitle">Everything you need to manage crews across multiple platforms, rigs, and terminals.</p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </div>
+        <h3>Visual Dashboard</h3>
+        <p>See every project as a card with crew avatars, progress bars, and status badges. No spreadsheets, no guesswork.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Drag &amp; Drop Crews</h3>
+        <p>Reassign inspectors between projects with a simple drag. Changes update instantly across your team.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3>Real-Time Overview</h3>
+        <p>Track project progress, crew assignments, and status changes as they happen. Always know where your teams are.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3>Multi-Project Management</h3>
+        <p>Manage inspections across platforms, rigs, pipelines, and terminals &mdash; all from a single dashboard view.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%# ── Pricing ── %>
+<section class="pricing-section" id="pricing">
+  <div class="marketing-container">
+    <h2 class="section-title">Simple, transparent pricing</h2>
+    <p class="section-subtitle">Start free, scale as your team grows.</p>
+
+    <div class="pricing-grid">
+      <div class="card pricing-card">
+        <div class="pricing-card-header">
+          <h3>Starter</h3>
+          <div class="pricing-amount">$49<span>/mo</span></div>
+        </div>
+        <ul class="pricing-features">
+          <li>1 manager seat</li>
+          <li>Up to 3 projects</li>
+          <li>15 crew members</li>
+          <li>Email support</li>
+        </ul>
+        <%= link_to "Get Started", new_registration_path, class: "btn btn-ghost btn-full" %>
+      </div>
+
+      <div class="card pricing-card pricing-card-featured">
+        <div class="pricing-badge">Most Popular</div>
+        <div class="pricing-card-header">
+          <h3>Pro</h3>
+          <div class="pricing-amount">$149<span>/mo</span></div>
+        </div>
+        <ul class="pricing-features">
+          <li>5 manager seats</li>
+          <li>Unlimited projects</li>
+          <li>Unlimited crew</li>
+          <li>Priority support</li>
+        </ul>
+        <%= link_to "Get Started", new_registration_path, class: "btn btn-primary btn-full" %>
+      </div>
+
+      <div class="card pricing-card">
+        <div class="pricing-card-header">
+          <h3>Enterprise</h3>
+          <div class="pricing-amount">Custom</div>
+        </div>
+        <ul class="pricing-features">
+          <li>Unlimited seats</li>
+          <li>SSO &amp; audit log</li>
+          <li>API access</li>
+          <li>Dedicated support</li>
+        </ul>
+        <%= link_to "Contact Sales", "mailto:support@crew-board.io", class: "btn btn-ghost btn-full" %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%# ── CTA ── %>
+<section class="cta-section">
+  <div class="marketing-container" style="text-align: center;">
+    <h2 class="section-title">Ready to take control of your crews?</h2>
+    <p class="section-subtitle">Set up your dashboard in under 2 minutes. No credit card required.</p>
+    <%= link_to "Create Your Free Account", new_registration_path, class: "btn btn-primary btn-lg" %>
+  </div>
+</section>

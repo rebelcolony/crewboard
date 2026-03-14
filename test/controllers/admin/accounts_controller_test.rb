@@ -29,7 +29,7 @@ class Admin::AccountsControllerTest < ActionDispatch::IntegrationTest
         account: { name: "New Tenant", subdomain: "newtenant", plan: "free" }
       }
     end
-    assert_redirected_to admin_account_path(Account.last)
+    assert_redirected_to admin_accounts_path
   end
 
   test "PATCH update modifies account" do

@@ -1,0 +1,45 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h1 class="auth-title">CrewBoard</h1>
+    <p class="auth-subtitle">Join <%= @invite.account.name %></p>
+
+    <% if flash[:alert] %>
+      <div class="alert alert-danger"><%= flash[:alert] %></div>
+    <% end %>
+
+    <p style="text-align: center; margin-bottom: 1.5rem; font-size: 0.875rem; color: var(--color-text-secondary);">
+      You've been invited by <%= @invite.invited_by.email_address %>. Set a password to join.
+    </p>
+
+    <%= form_with model: @manager, url: accept_invite_path(token: @invite.token), method: :post, class: "auth-form" do |f| %>
+      <% if @manager.errors.any? %>
+        <div class="alert alert-danger">
+          <% @manager.errors.full_messages.each do |msg| %>
+            <p><%= msg %></p>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" value="<%= @invite.email %>" disabled>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password, "Password" %>
+        <%= f.password_field :password, autofocus: true, required: true, placeholder: "Min 8 characters" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password_confirmation, "Confirm Password" %>
+        <%= f.password_field :password_confirmation, required: true %>
+      </div>
+
+      <%= f.submit "Join Team", class: "btn btn-primary btn-full" %>
+    <% end %>
+
+    <p style="text-align: center; margin-top: 1rem; font-size: 0.875rem; color: var(--color-text-secondary);">
+      Already have an account? <%= link_to "Sign in", new_session_path %>
+    </p>
+  </div>
+</div>

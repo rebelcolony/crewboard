@@ -50,4 +50,176 @@ class AccountTest < ActiveSupport::TestCase
     account = accounts(:aberdeen)
     assert_includes account.crew_members, crew_members(:callum)
   end
+
+  # --- Billing / plan methods ---
+
+  test "active_subscription? returns false with no payment processor" do
+    account = accounts(:aberdeen)
+    assert_not account.active_subscription?
+  end
+
+  test "active_subscription? returns true with active subscription" do
+    account = accounts(:aberdeen)
+    account.set_payment_processor :stripe, processor_id: "cus_test_123"
+    account.payment_processor.subscriptions.create!(
+      name: "starter",
+      processor_id: "sub_test_123",
+      processor_plan: "price_starter_test",
+      status: "active"
+    )
+    assert account.reload.active_subscription?
+  end
+
+  test "active_subscription? returns false with canceled subscription" do
+    account = accounts(:aberdeen)
+    account.set_payment_processor :stripe, processor_id: "cus_test_456"
+    account.payment_processor.subscriptions.create!(
+      name: "starter",
+      processor_id: "sub_test_456",
+      processor_plan: "price_starter_test",
+      status: "canceled",
+      ends_at: 1.day.ago
+    )
+    assert_not account.reload.active_subscription?
+  end
+
+  test "plan_name returns free when no subscription" do
+    account = accounts(:aberdeen)
+    assert_equal "free", account.plan_name
+  end
+
+  test "plan_name returns subscription name when subscription exists" do
+    account = accounts(:aberdeen)
+    account.set_payment_processor :stripe, processor_id: "cus_test_789"
+    account.payment_processor.subscriptions.create!(
+      name: "pro",
+      processor_id: "sub_test_789",
+      processor_plan: "price_pro_test",
+      status: "active"
+    )
+    assert_equal "pro", account.reload.plan_name
+  end
+
+  test "project_limit returns 2 for free plan" do
+    account = Account.new(name: "Test")
+    assert_equal 2, account.project_limit
+  end
+
+  test "project_limit returns 10 for starter plan" do
+    account = accounts(:aberdeen)
+    account.set_payment_processor :stripe, processor_id: "cus_test_limit"
+    account.payment_processor.subscriptions.create!(
+      name: "starter",
+      processor_id: "sub_test_limit",
+      processor_plan: "price_starter_test",
+      status: "active"
+    )
+    assert_equal 10, account.reload.project_limit
+  end
+
+  test "project_limit returns nil (unlimited) for pro plan" do
+    account = accounts(:aberdeen)
+    account.set_payment_processor :stripe, processor_id: "cus_test_pro"
+    account.payment_processor.subscriptions.create!(
+      name: "pro",
+      processor_id: "sub_test_pro",
+      processor_plan: "price_pro_test",
+      status: "active"
+    )
+    assert_nil account.reload.project_limit
+  end
+
+  test "project_limit_reached? is true when at free-tier limit" do
+    account = accounts(:aberdeen)
+    # aberdeen fixture has 2 projects (forties + brent), free tier limit is 2
+    assert account.project_limit_reached?
+  end
+
+  test "project_limit_reached? is false when under limit" do
+    account = accounts(:aberdeen)
+    projects(:brent).destroy
+    assert_not account.project_limit_reached?
+  end
+
+  test "project_limit_reached? is false for pro plan (unlimited)" do
+    account = accounts(:aberdeen)
+    account.set_payment_processor :stripe, processor_id: "cus_test_unlim"
+    account.payment_processor.subscriptions.create!(
+      name: "pro",
+      processor_id: "sub_test_unlim",
+      processor_plan: "price_pro_test",
+      status: "active"
+    )
+    assert_not account.reload.project_limit_reached?
+  end
+
+  # --- Crew member limits ---
+
+  test "crew_member_limit returns 5 for free plan" do
+    account = Account.new(name: "Test")
+    assert_equal 5, account.crew_member_limit
+  end
+
+  test "crew_member_limit returns 15 for starter plan" do
+    account = accounts(:aberdeen)
+    account.set_payment_processor :stripe, processor_id: "cus_crew_starter"
+    account.payment_processor.subscriptions.create!(
+      name: "starter",
+      processor_id: "sub_crew_starter",
+      processor_plan: "price_starter_test",
+      status: "active"
+    )
+    assert_equal 15, account.reload.crew_member_limit
+  end
+
+  test "crew_member_limit returns nil (unlimited) for pro plan" do
+    account = accounts(:aberdeen)
+    account.set_payment_processor :stripe, processor_id: "cus_crew_pro"
+    account.payment_processor.subscriptions.create!(
+      name: "pro",
+      processor_id: "sub_crew_pro",
+      processor_plan: "price_pro_test",
+      status: "active"
+    )
+    assert_nil account.reload.crew_member_limit
+  end
+
+  test "crew_member_limit_reached? is true when at free-tier limit" do
+    account = accounts(:aberdeen)
+    # aberdeen has 2 crew, free limit is 5 — add 3 more
+    3.times { |i| account.crew_members.create!(name: "Extra #{i}", role: "Test", email: "extra#{i}@test.com") }
+    assert account.crew_member_limit_reached?
+  end
+
+  test "crew_member_limit_reached? is false when under limit" do
+    account = accounts(:aberdeen)
+    # aberdeen has 2 crew, free limit is 5
+    assert_not account.crew_member_limit_reached?
+  end
+
+  # --- Usage percentages ---
+
+  test "project_usage_percent returns percentage of limit used" do
+    account = accounts(:aberdeen)
+    # 2 projects, limit 2 = 100%
+    assert_equal 100, account.project_usage_percent
+  end
+
+  test "project_usage_percent returns 0 for unlimited plan" do
+    account = accounts(:aberdeen)
+    account.set_payment_processor :stripe, processor_id: "cus_usage_pro"
+    account.payment_processor.subscriptions.create!(
+      name: "pro",
+      processor_id: "sub_usage_pro",
+      processor_plan: "price_pro_test",
+      status: "active"
+    )
+    assert_equal 0, account.reload.project_usage_percent
+  end
+
+  test "crew_member_usage_percent returns percentage of limit used" do
+    account = accounts(:aberdeen)
+    # 2 crew members, limit 5 = 40%
+    assert_equal 40, account.crew_member_usage_percent
+  end
 end

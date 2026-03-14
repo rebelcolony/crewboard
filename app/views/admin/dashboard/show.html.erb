@@ -2,23 +2,11 @@
 
 <div class="stats-grid">
   <div class="stat-card">
-    <div class="stat-card-label">Accounts</div>
+    <div class="stat-card-label"><i class="fa-solid fa-building"></i> Accounts</div>
     <div class="stat-card-value"><%= @total_accounts %></div>
   </div>
   <div class="stat-card">
-    <div class="stat-card-label">Managers</div>
-    <div class="stat-card-value"><%= @total_managers %></div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-card-label">Projects</div>
-    <div class="stat-card-value"><%= @total_projects %></div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-card-label">Crew Members</div>
-    <div class="stat-card-value"><%= @total_crew %></div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-card-label">Active Subscriptions</div>
+    <div class="stat-card-label"><i class="fa-solid fa-receipt"></i> Active Subscriptions</div>
     <div class="stat-card-value"><%= @active_subscriptions %></div>
   </div>
 </div>
@@ -38,7 +26,7 @@
     <% @recent_accounts.each do |account| %>
       <tr>
         <td><%= link_to account.name, admin_account_path(account) %></td>
-        <td><span class="badge badge-accent"><%= account.plan %></span></td>
+        <td><span class="badge badge-accent"><%= account.plan_name.capitalize %></span></td>
         <td><%= account.managers.count %></td>
         <td><%= account.projects.count %></td>
         <td class="text-secondary text-sm"><%= account.created_at.strftime("%b %d, %Y") %></td>

@@ -10,6 +10,7 @@
     <%= yield :head %>
 
     <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
@@ -17,23 +18,40 @@
   <body data-controller="theme">
     <nav class="navbar">
       <div class="navbar-brand">
-        <%= link_to "CrewBoard", root_path, class: "navbar-logo" %>
+        <%= link_to dashboard_path, class: "navbar-logo" do %>
+          CrewBoard<% if Current.account %><span class="navbar-tenant"> / <%= Current.account.name %></span><% end %>
+        <% end %>
       </div>
 
       <div class="navbar-links">
-        <%= link_to "Dashboard", root_path, class: "navbar-link #{'active' if controller_name == 'dashboard'}" %>
-        <%= link_to "Projects", projects_path, class: "navbar-link #{'active' if controller_name == 'projects'}" %>
-        <%= link_to "Crew", crew_members_path, class: "navbar-link #{'active' if controller_name == 'crew_members'}" %>
+        <%= link_to dashboard_path, class: "navbar-link #{'active' if controller_name == 'dashboard'}" do %>
+          <i class="fa-solid fa-grip"></i> Dashboard
+        <% end %>
+        <%= link_to projects_path, class: "navbar-link #{'active' if controller_name == 'projects'}" do %>
+          <i class="fa-solid fa-folder-open"></i> Projects
+        <% end %>
+        <%= link_to crew_members_path, class: "navbar-link #{'active' if controller_name == 'crew_members'}" do %>
+          <i class="fa-solid fa-users"></i> Crew
+        <% end %>
+        <% if authenticated? %>
+          <%= link_to invites_path, class: "navbar-link #{'active' if controller_name == 'invites'}" do %>
+            <i class="fa-solid fa-user-plus"></i> Team
+          <% end %>
+          <%= link_to billing_path, class: "navbar-link #{'active' if controller_name == 'billings'}" do %>
+            <i class="fa-solid fa-credit-card"></i> Billing
+          <% end %>
+          <%= link_to profile_path, class: "navbar-link #{'active' if controller_name == 'profile'}" do %>
+            <i class="fa-solid fa-user-gear"></i> Profile
+          <% end %>
+          <% if Current.manager&.super_admin? %>
+            <%= link_to admin_root_path, class: "navbar-link" do %>
+              <i class="fa-solid fa-shield-halved"></i> Admin
+            <% end %>
+          <% end %>
+        <% end %>
       </div>
 
       <div class="navbar-actions">
-        <% if authenticated? %>
-          <%= link_to "Billing", billing_path, class: "navbar-link" %>
-          <% if Current.manager&.super_admin? %>
-            <%= link_to "Admin", admin_root_path, class: "navbar-link" %>
-          <% end %>
-        <% end %>
-
         <button class="theme-toggle" data-action="click->theme#toggle" data-theme-target="button" title="Toggle theme">
           <span class="theme-toggle-icon" data-theme-target="icon"></span>
         </button>

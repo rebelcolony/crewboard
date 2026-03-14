@@ -4,24 +4,33 @@ service: crewboard
 # Name of the container image.
 image: crewboard
 
-# Where you keep your container images.
-registry:
-  server: localhost:5555
+# Deploy to a single production server.
+servers:
+  web:
+    hosts:
+      - 139.162.197.173
 
-# Shared environment variables across all destinations.
+# Container registry — Docker Hub
+registry:
+  username: crewboard
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+# Configure the proxy (kamal-proxy handles SSL via Let's Encrypt).
+proxy:
+  ssl: true
+  host: crew-board.io
+
+# Environment variables.
 env:
   secret:
     - RAILS_MASTER_KEY
     - DATABASE_PASSWORD
   clear:
+    RAILS_ENV: production
     SOLID_QUEUE_IN_PUMA: true
-
-# Aliases are triggered with "bin/kamal <alias>".
-aliases:
-  console: app exec --interactive --reuse "bin/rails console"
-  shell: app exec --interactive --reuse "bash"
-  logs: app logs -f
-  dbc: app exec --interactive --reuse "bin/rails dbconsole --include-password"
+    DB_HOST: crewboard-db
+    WEB_CONCURRENCY: 2
 
 # Persistent storage for Active Storage files.
 volumes:
@@ -34,36 +43,26 @@ asset_path: /rails/public/assets
 builder:
   arch: amd64
 
-# ============================================================
-# Destinations — deploy with: kamal deploy -d <destination>
-# ============================================================
-
-destinations:
-  staging:
-    servers:
-      web:
-        hosts:
-          - 10.0.1.10  # PLACEHOLDER — replace with your staging server IP
-    proxy:
-      ssl: true
-      host: staging.crewboard.com
+# Accessories — PostgreSQL running on the same server.
+accessories:
+  db:
+    image: postgres:16
+    host: 139.162.197.173
+    port: "127.0.0.1:5432:5432"
     env:
+      secret:
+        - POSTGRES_PASSWORD
       clear:
-        RAILS_ENV: production
-        DB_HOST: 10.0.1.20  # PLACEHOLDER — replace with your staging DB host
-        RAILS_LOG_LEVEL: debug
-        WEB_CONCURRENCY: 1
+        POSTGRES_USER: crewboard
+        POSTGRES_DB: crewboard_production
+    directories:
+      - crewboard_pgdata:/var/lib/postgresql/data
+    files:
+      - config/init.sql:/docker-entrypoint-initdb.d/init.sql
 
-  production:
-    servers:
-      web:
-        hosts:
-          - 10.0.2.10  # PLACEHOLDER — replace with your production server IP
-    proxy:
-      ssl: true
-      host: crewboard.com
-    env:
-      clear:
-        RAILS_ENV: production
-        DB_HOST: 10.0.2.20  # PLACEHOLDER — replace with your production DB host
-        WEB_CONCURRENCY: 2
+# Aliases are triggered with "bin/kamal <alias>".
+aliases:
+  console: app exec --interactive --reuse "bin/rails console"
+  shell: app exec --interactive --reuse "bash"
+  logs: app logs -f
+  dbc: app exec --interactive --reuse "bin/rails dbconsole --include-password"

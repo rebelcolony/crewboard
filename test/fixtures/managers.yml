@@ -1,17 +1,17 @@
 admin:
   email_address: "admin@crewboard.com"
-  password_digest: "$2a$12$YNDrvSE9IlIdELFZOExcSexBl8XKonl5b3uaIKYIiLqzOURbF38Y6"
+  password_digest: <%= BCrypt::Password.create("password123", cost: 4) %>
   account: aberdeen
   super_admin: true
 
 regular:
   email_address: "regular@crewboard.com"
-  password_digest: "$2a$12$YNDrvSE9IlIdELFZOExcSexBl8XKonl5b3uaIKYIiLqzOURbF38Y6"
+  password_digest: <%= BCrypt::Password.create("password123", cost: 4) %>
   account: aberdeen
   super_admin: false
 
 other_manager:
   email_address: "manager@gulfcoast.com"
-  password_digest: "$2a$12$YNDrvSE9IlIdELFZOExcSexBl8XKonl5b3uaIKYIiLqzOURbF38Y6"
+  password_digest: <%= BCrypt::Password.create("password123", cost: 4) %>
   account: other_tenant
   super_admin: false

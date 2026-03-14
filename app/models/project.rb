@@ -3,7 +3,7 @@ class Project < ApplicationRecord
 
   has_many :crew_members, dependent: :nullify
 
-  enum :status, { not_started: 0, in_progress: 1, on_hold: 2, completed: 3 }
+  enum :status, { not_started: 0, in_progress: 1, on_hold: 2, completed: 3 }, default: :not_started
 
   validates :name, presence: true
   validates :progress, numericality: { in: 0..100 }, allow_nil: true

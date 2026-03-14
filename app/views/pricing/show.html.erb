@@ -8,16 +8,22 @@
     <div class="card pricing-card">
       <div class="pricing-card-header">
         <h3>Starter</h3>
-        <div class="pricing-price">$29<span class="pricing-period">/mo</span></div>
+        <div class="pricing-price">$49<span class="pricing-period">/mo</span></div>
       </div>
       <ul class="pricing-features">
-        <li>Up to 3 projects</li>
-        <li>Up to 15 crew members</li>
-        <li>Dashboard view</li>
-        <li>Drag & drop assignments</li>
+        <li><i class="fa-solid fa-check"></i> Up to 10 projects</li>
+        <li><i class="fa-solid fa-check"></i> Up to 15 crew members</li>
+        <li><i class="fa-solid fa-check"></i> Dashboard view</li>
+        <li><i class="fa-solid fa-check"></i> Drag & drop assignments</li>
       </ul>
       <% if authenticated? %>
-        <%= button_to "Subscribe", checkouts_path, params: { plan: "starter" }, class: "btn btn-secondary btn-full" %>
+        <% if @current_plan == "starter" %>
+          <span class="btn btn-secondary btn-full btn-disabled">Current Plan</span>
+        <% elsif @current_plan == "pro" %>
+          <%= button_to "Downgrade to Starter", swap_checkouts_path, params: { plan: "starter" }, class: "btn btn-secondary btn-full", data: { turbo: false, turbo_confirm: "Downgrade to Starter? Your plan will change immediately." } %>
+        <% else %>
+          <%= button_to "Subscribe", checkouts_path, params: { plan: "starter" }, class: "btn btn-secondary btn-full", data: { turbo: false } %>
+        <% end %>
       <% else %>
         <%= link_to "Get Started", new_registration_path, class: "btn btn-secondary btn-full" %>
       <% end %>
@@ -27,17 +33,23 @@
       <div class="badge badge-accent" style="margin-bottom: 0.75rem;">Most Popular</div>
       <div class="pricing-card-header">
         <h3>Pro</h3>
-        <div class="pricing-price">$79<span class="pricing-period">/mo</span></div>
+        <div class="pricing-price">$149<span class="pricing-period">/mo</span></div>
       </div>
       <ul class="pricing-features">
-        <li>Unlimited projects</li>
-        <li>Unlimited crew members</li>
-        <li>Dashboard view</li>
-        <li>Drag & drop assignments</li>
-        <li>Priority support</li>
+        <li><i class="fa-solid fa-check"></i> Unlimited projects</li>
+        <li><i class="fa-solid fa-check"></i> Unlimited crew members</li>
+        <li><i class="fa-solid fa-check"></i> Dashboard view</li>
+        <li><i class="fa-solid fa-check"></i> Drag & drop assignments</li>
+        <li><i class="fa-solid fa-check"></i> Priority support</li>
       </ul>
       <% if authenticated? %>
-        <%= button_to "Subscribe", checkouts_path, params: { plan: "pro" }, class: "btn btn-primary btn-full" %>
+        <% if @current_plan == "pro" %>
+          <span class="btn btn-primary btn-full btn-disabled">Current Plan</span>
+        <% elsif @current_plan == "starter" %>
+          <%= button_to "Upgrade to Pro", swap_checkouts_path, params: { plan: "pro" }, class: "btn btn-primary btn-full", data: { turbo: false, turbo_confirm: "Upgrade to Pro? You'll be charged the prorated difference." } %>
+        <% else %>
+          <%= button_to "Subscribe", checkouts_path, params: { plan: "pro" }, class: "btn btn-primary btn-full", data: { turbo: false } %>
+        <% end %>
       <% else %>
         <%= link_to "Get Started", new_registration_path, class: "btn btn-primary btn-full" %>
       <% end %>
@@ -49,16 +61,18 @@
         <div class="pricing-price">Custom</div>
       </div>
       <ul class="pricing-features">
-        <li>Everything in Pro</li>
-        <li>SSO / SAML</li>
-        <li>Dedicated support</li>
-        <li>Custom integrations</li>
+        <li><i class="fa-solid fa-check"></i> Everything in Pro</li>
+        <li><i class="fa-solid fa-check"></i> SSO / SAML</li>
+        <li><i class="fa-solid fa-check"></i> Dedicated support</li>
+        <li><i class="fa-solid fa-check"></i> Custom integrations</li>
       </ul>
-      <%= link_to "Contact Us", "mailto:sales@crewboard.com", class: "btn btn-secondary btn-full" %>
+      <%= link_to "Contact Us", "mailto:support@crew-board.io", class: "btn btn-secondary btn-full" %>
     </div>
   </div>
 
-  <p style="text-align: center; margin-top: 2rem; font-size: 0.875rem; color: var(--color-text-secondary);">
-    Already have an account? <%= link_to "Sign in", new_session_path %>
-  </p>
+  <% unless authenticated? %>
+    <p style="text-align: center; margin-top: 2rem; font-size: 0.875rem; color: var(--color-text-secondary);">
+      Already have an account? <%= link_to "Sign in", new_session_path %>
+    </p>
+  <% end %>
 </div>

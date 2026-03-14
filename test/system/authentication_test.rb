@@ -4,7 +4,7 @@ class AuthenticationTest < ApplicationSystemTestCase
   test "sign in with valid credentials" do
     system_sign_in
     assert_selector "h3", text: /Unassigned Crew/i
-    assert_current_path root_path
+    assert_current_path dashboard_path
   end
 
   test "sign in with bad password shows error" do

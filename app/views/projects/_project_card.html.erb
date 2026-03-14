@@ -6,7 +6,7 @@
 
     <%= link_to project_path(project), class: "project-card-link", data: { turbo_frame: "modal" } do %>
       <h3 class="project-card-name"><%= project.name %></h3>
-      <p class="project-card-location"><%= project.location %></p>
+      <p class="project-card-location"><i class="fa-solid fa-location-dot"></i> <%= project.location %></p>
 
       <div class="project-card-status">
         <span class="badge badge-<%= project.status_color %>"><%= project.status&.humanize || "Not set" %></span>

@@ -18,12 +18,14 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "GET new renders form" do
+    projects(:brent).destroy  # make room under free-tier limit
     get new_project_path
     assert_response :success
     assert_select "form"
   end
 
   test "POST create adds a project to current account" do
+    projects(:brent).destroy  # make room under free-tier limit
     assert_difference "Project.count", 1 do
       post projects_path, params: {
         project: { name: "New Survey", location: "Aberdeen", status: "not_started", progress: 0 }
@@ -31,10 +33,11 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     end
     project = Project.last
     assert_equal accounts(:aberdeen), project.account
-    assert_redirected_to project_path(project)
+    assert_redirected_to projects_path
   end
 
   test "POST create with invalid params re-renders form" do
+    projects(:brent).destroy  # make room under free-tier limit
     assert_no_difference "Project.count" do
       post projects_path, params: { project: { name: "" } }
     end
@@ -43,7 +46,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
   test "PATCH update modifies project" do
     patch project_path(projects(:forties)), params: { project: { progress: 80 } }
-    assert_redirected_to project_path(projects(:forties))
+    assert_redirected_to projects_path
     assert_equal 80, projects(:forties).reload.progress
   end
 
@@ -55,8 +58,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "cannot access other tenant project" do
-    assert_raises ActiveRecord::RecordNotFound do
-      get project_path(projects(:other_project))
-    end
+    get project_path(projects(:other_project))
+    assert_response :not_found
   end
 end

@@ -66,6 +66,19 @@ Open `http://localhost:3000` and sign in:
 
 This account has `super_admin: true`, so the Admin link appears in the navbar.
 
+### Running Tests
+
+```bash
+# Run full test suite
+bin/rails test
+
+# Run a specific test file
+bin/rails test test/models/manager_test.rb
+
+# Run a single test by line number
+bin/rails test test/controllers/projects_controller_test.rb:26
+```
+
 ### Prerequisites
 
 - Ruby 3.2+
@@ -214,6 +227,22 @@ The seeds create an Aberdeen offshore inspection scenario:
 - 8 projects (platform inspections, pipeline surveys, decommissioning, wind farm)
 - 25 crew members with realistic roles (Lead Inspector, NDT Technician, Rope Access Tech, ROV Pilot, etc.)
 - Pre-assigned crew across projects with 5 left unassigned
+
+## To Do
+
+### Must-haves
+- [x] Password reset / forgot password flow (mailer + token-based reset)
+- [x] Profile page — allow managers to update their email and password
+- [x] Account settings — edit company name, subdomain after registration
+
+### Should-haves
+- [x] Team invites — invite additional managers to an account via email
+- [x] Transactional emails — welcome, payment receipt, invite, password reset mailers
+- [x] Usage indicators on dashboard — "2 of 10 projects used" with upgrade prompt near limit
+
+### Nice-to-haves
+- [x] In-app plan upgrade/downgrade (not just via Stripe portal)
+- [ ] Onboarding flow — guided first-project creation for new signups
 
 ## Future Enhancements
 
