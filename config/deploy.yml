@@ -12,7 +12,7 @@ servers:
 
 # Container registry — Docker Hub
 registry:
-  username: crewboard
+  username: rebelreever
   password:
     - KAMAL_REGISTRY_PASSWORD
 
