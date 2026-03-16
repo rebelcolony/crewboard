@@ -2,7 +2,7 @@
 service: crewboard
 
 # Name of the container image.
-image: crewboard
+image: rebelreever/crewboard
 
 # Deploy to a single production server.
 servers:
