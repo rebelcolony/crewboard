@@ -19,7 +19,7 @@ registry:
 # Configure the proxy (kamal-proxy handles SSL via Let's Encrypt).
 proxy:
   ssl: true
-  host: crew-board.io
+  host: crew-control.io
 
 # Environment variables.
 env:
