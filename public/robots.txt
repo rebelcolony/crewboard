@@ -1,1 +1,21 @@
-# See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
+# CrewControl robots.txt
+# Allow all bot access to public pages
+
+User-agent: *
+Allow: /
+
+# Disallow private user areas
+Disallow: /dashboard
+Disallow: /admin
+Disallow: /projects
+Disallow: /crew_members
+Disallow: /invites
+Disallow: /profile
+Disallow: /password_reset
+Disallow: /session
+
+# Crawl delay (optional - adjust as needed)
+# Crawl-delay: 1
+
+# Reference sitemap for search engines
+Sitemap: https://crew-control.io/sitemap.xml

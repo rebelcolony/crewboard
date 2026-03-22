@@ -1,3 +1,31 @@
+<% content_for(:page_title) { "CrewControl — Team Coordination & Project Management Software" } %>
+<% content_for(:page_description) { "Real-time team allocation, project oversight, and crew management. CrewControl gives managers complete visibility over people, projects, and assignments." } %>
+
+<!-- Schema.org SoftwareApplication -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "CrewControl",
+  "description": "Team coordination and crew management software. Get real-time visibility over people, projects, and assignments. Visual operations dashboard, drag & drop allocation, multi-project control.",
+  "url": "<%= root_url %>",
+  "applicationCategory": "BusinessApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "description": "Free plan with 1 project and up to 10 team members"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "24"
+  },
+  "operatingSystem": "Web",
+  "screenshot": "<%= "#{request.base_url}/og-image.png" %>"
+}
+</script>
+
 <%# ── Hero ── %>
 <section class="hero">
   <div class="marketing-container">

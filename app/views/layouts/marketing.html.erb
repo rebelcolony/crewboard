@@ -1,11 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>CrewControl — Offshore Crew Management Dashboard</title>
+  <title><%= content_for(:page_title) || "CrewControl — Team Coordination & Project Management Software" %></title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Visual crew management for offshore inspections. See your projects, crews, and assignments at a glance.">
+  <meta name="description" content="<%= content_for(:page_description) || "Real-time team allocation, project oversight, and crew management. CrewControl gives managers complete visibility over people, projects, and assignments." %>">
+  
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="<%= content_for(:og_title) || content_for(:page_title) || "CrewControl — Team Coordination & Project Management Software" %>">
+  <meta property="og:description" content="<%= content_for(:og_description) || content_for(:page_description) || "Real-time team allocation, project oversight, and crew management. CrewControl gives managers complete visibility over people, projects, and assignments." %>">
+  <meta property="og:url" content="<%= content_for(:og_url) || request.url %>">
+  <meta property="og:type" content="<%= content_for(:og_type) || "website" %>">
+  <meta property="og:image" content="<%= content_for(:og_image) || "#{request.base_url}/og-image.png" %>">
+  <meta property="og:image:alt" content="CrewControl - Team Coordination Software">
+  <meta property="og:site_name" content="CrewControl">
+  
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="<%= content_for(:twitter_card) || "summary_large_image" %>">
+  <meta name="twitter:title" content="<%= content_for(:twitter_title) || content_for(:page_title) || "CrewControl — Team Coordination & Project Management Software" %>">
+  <meta name="twitter:description" content="<%= content_for(:twitter_description) || content_for(:page_description) || "Real-time team allocation, project oversight, and crew management. CrewControl gives managers complete visibility over people, projects, and assignments." %>">
+  <meta name="twitter:image" content="<%= content_for(:twitter_image) || "#{request.base_url}/og-image.png" %>">
+  
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "CrewControl",
+    "url": "<%= root_url %>",
+    "logo": "<%= "#{request.base_url}/icon.png" %>",
+    "sameAs": [],
+    "description": "Team coordination and crew management software for project ops. CrewControl gives managers complete visibility over people, projects, and assignments.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "GB",
+      "addressLocality": "Tain",
+      "postalCode": "IV19 1BJ",
+      "streetAddress": "10 Knockbreak St"
+    },
+    "contact": {
+      "@type": "ContactPoint",
+      "contactType": "Customer Support",
+      "email": "support@crew-control.io"
+    }
+  }
+  </script>
+  
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/icon-128.png" type="image/png" sizes="128x128">
+  <link rel="icon" href="/icon-256.png" type="image/png" sizes="256x256">
+  <link rel="apple-touch-icon" href="/icon.png" sizes="512x512">
   <%= stylesheet_link_tag "application" %>
   <%= javascript_importmap_tags %>
 </head>

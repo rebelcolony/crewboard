@@ -1,3 +1,45 @@
+<% content_for(:page_title) { "CrewControl Pricing — Simple Plans for Every Team" } %>
+<% content_for(:page_description) { "Affordable pricing plans for team coordination software. Start free, upgrade as you grow. Choose the right plan for your team." } %>
+
+<!-- Schema.org Pricing -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "PriceSpecification",
+  "priceCurrency": "USD",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Free Plan",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "1 manager seat, up to 2 projects, 10 team members, community support"
+    },
+    {
+      "@type": "Offer",
+      "name": "Starter Plan",
+      "price": "49",
+      "priceCurrency": "USD",
+      "description": "1 manager seat, up to 5 projects, 50 team members, email support"
+    },
+    {
+      "@type": "Offer",
+      "name": "Pro Plan",
+      "price": "149",
+      "priceCurrency": "USD",
+      "description": "5 manager seats, up to 20 projects, unlimited team members, priority support"
+    },
+    {
+      "@type": "Offer",
+      "name": "Enterprise Plan",
+      "price": "custom",
+      "priceCurrency": "USD",
+      "description": "Unlimited seats, SSO, audit log, API access, dedicated support"
+    }
+  ]
+}
+</script>
+
 <div class="auth-container" style="max-width: 900px;">
   <h1 style="text-align: center; margin-bottom: 0.5rem;">Choose Your Plan</h1>
   <p style="text-align: center; color: var(--color-text-secondary); margin-bottom: 2rem;">

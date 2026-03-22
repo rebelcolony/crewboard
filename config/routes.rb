@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   get "invites/:token/accept", to: "invites#accept", as: :accept_invite
   post "invites/:token/accept", to: "invites#register"
 
+  # Sitemap & SEO
+  get "sitemap.xml", to: "pages#sitemap", format: :xml
+
   # Stripe
   get "pricing", to: "pricing#show"
   resources :checkouts, only: [ :create ] do

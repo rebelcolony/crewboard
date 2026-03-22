@@ -1089,6 +1089,10 @@ a:hover { text-decoration: underline; }
   color: var(--color-text-primary);
 }
 
+.marketing-nav-links .btn-primary {
+  color: #fff;
+}
+
 /* Hero */
 .hero {
   padding: 5rem 0 4rem;
@@ -1341,6 +1345,7 @@ a:hover { text-decoration: underline; }
 .btn-ghost:hover {
   border-color: var(--color-accent);
   color: var(--color-accent);
+  text-decoration: none;
 }
 
 /* --- Legal Pages --- */

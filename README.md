@@ -188,27 +188,10 @@ app/
 Kamal is configured with staging and production destinations:
 
 ```bash
-# Deploy to staging
-bin/deploy staging
-
-# Deploy to production
-bin/deploy production
-
-# Or use kamal directly
-kamal deploy -d staging
 kamal deploy -d production
 
 # Console access
 kamal console -d production
-```
-
-Server IPs in `config/deploy.yml` are placeholders — replace with your actual servers before deploying.
-
-Set `DATABASE_PASSWORD` as an environment variable before deploying:
-
-```bash
-export DATABASE_PASSWORD=your_db_password
-bin/deploy production
 ```
 
 ## How Drag and Drop Works
@@ -230,16 +213,6 @@ The seeds create an Aberdeen offshore inspection scenario:
 
 ## To Do
 
-### Must-haves
-- [x] Password reset / forgot password flow (mailer + token-based reset)
-- [x] Profile page — allow managers to update their email and password
-- [x] Account settings — edit company name, subdomain after registration
-
-### Should-haves
-- [x] Team invites — invite additional managers to an account via email
-- [x] Transactional emails — welcome, payment receipt, invite, password reset mailers
-- [x] Usage indicators on dashboard — "2 of 10 projects used" with upgrade prompt near limit
-
 ### Nice-to-haves
 - [x] In-app plan upgrade/downgrade (not just via Stripe portal)
 - [ ] Onboarding flow — guided first-project creation for new signups
@@ -252,3 +225,4 @@ The seeds create an Aberdeen offshore inspection scenario:
 - Per-seat pricing enforcement
 - Subdomain-based tenant routing
 - Mobile responsive drag (touch events)
+- iFrame embedding for a more interactive marketing site
