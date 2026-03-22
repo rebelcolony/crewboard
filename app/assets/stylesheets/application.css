@@ -251,6 +251,42 @@ a:hover { text-decoration: underline; }
   color: var(--color-text-muted);
 }
 
+/* Password visibility toggle */
+.password-field-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-field-wrapper input[type="password"],
+.password-field-wrapper input[type="text"] {
+  width: 100%;
+  padding-right: 2.5rem;
+}
+
+.password-visibility-toggle {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--transition);
+}
+
+.password-visibility-toggle:hover {
+  color: var(--color-accent);
+}
+
+.password-visibility-toggle .eye-icon {
+  width: 20px;
+  height: 20px;
+}
+
 .form-row {
   display: flex;
   gap: 1rem;

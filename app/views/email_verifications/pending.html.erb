@@ -1,0 +1,36 @@
+<div class="auth-container">
+  <div style="text-align: center;">
+    <% if flash[:alert] %>
+      <div class="alert alert-danger" style="margin-bottom: 1.5rem;"><%= flash[:alert] %></div>
+    <% end %>
+
+    <% if flash[:notice] %>
+      <div class="alert alert-success" style="margin-bottom: 1.5rem;"><%= flash[:notice] %></div>
+    <% end %>
+
+    <h1 style="margin-bottom: 0.5rem;">Verify Your Email</h1>
+    <p style="color: var(--color-text-secondary); margin-bottom: 2rem;">
+      We've sent a verification link to <strong><%= @manager.email_address %></strong>
+    </p>
+
+    <div style="background: var(--color-background-secondary); padding: 2rem; border-radius: 8px; margin-bottom: 2rem;">
+      <p style="margin: 0 0 1rem 0; color: var(--color-text-secondary);">
+        Please click the link in your email to verify your account. The link expires in 24 hours.
+      </p>
+      <p style="margin: 0; font-size: 14px; color: var(--color-text-tertiary);">
+        Check your spam folder if you don't see the email.
+      </p>
+    </div>
+
+    <div style="margin-bottom: 2rem;">
+      <p style="margin-bottom: 1rem; color: var(--color-text-secondary);">
+        Didn't receive the email?
+      </p>
+      <%= button_to "Resend Verification Email", resend_verification_email_path, method: :post, class: "btn btn-secondary" %>
+    </div>
+
+    <p style="margin-top: 2rem; font-size: 14px; color: var(--color-text-tertiary);">
+      <%= link_to "Back to Home", root_path, style: "color: inherit;" %>
+    </p>
+  </div>
+</div>

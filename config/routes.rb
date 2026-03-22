@@ -6,6 +6,12 @@ Rails.application.routes.draw do
   resource :registration, only: [ :new, :create ]
   resource :password_reset, only: [ :new, :create, :edit, :update ]
   resource :profile, only: [ :show, :update ]
+  
+  # Email verification
+  get "verify-email/pending", to: "email_verifications#pending", as: :verify_email_pending
+  get "verify-email/:token", to: "email_verifications#verify", as: :verify_email
+  post "verify-email/resend", to: "email_verifications#resend", as: :resend_verification_email
+  
   resources :projects
   resources :crew_members
   resources :invites, only: [ :index, :create, :destroy ]

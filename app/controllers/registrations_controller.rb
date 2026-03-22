@@ -15,11 +15,12 @@ class RegistrationsController < ApplicationController
     ActiveRecord::Base.transaction do
       @account.save!
       @manager.save!
+      @manager.generate_email_verification_token!
     end
 
-    start_session(@manager)
-    AccountMailer.welcome(@manager).deliver_later
-    redirect_to dashboard_path, notice: "Welcome to CrewControl!"
+    AccountMailer.confirmation_email(@manager).deliver_later
+    session[:unverified_manager_id] = @manager.id
+    redirect_to verify_email_pending_path, notice: "Please check your email to verify your account."
   rescue ActiveRecord::RecordInvalid
     render :new, status: :unprocessable_entity
   end
