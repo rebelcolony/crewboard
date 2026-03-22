@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title><%= content_for(:title) || "Admin — CrewBoard" %></title>
+    <title><%= content_for(:title) || "Admin — CrewControl" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -13,7 +13,7 @@
   <body data-controller="theme">
     <nav class="navbar">
       <div class="navbar-brand">
-        <%= link_to "CrewBoard", root_path, class: "navbar-logo" %>
+        <%= link_to "CrewControl", root_path, class: "navbar-logo" %>
         <span class="admin-badge">Admin</span>
       </div>
 

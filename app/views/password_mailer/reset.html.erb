@@ -8,7 +8,7 @@
 
   <p>Hi <%= @manager.email_address %>,</p>
 
-  <p>Someone requested a password reset for your CrewBoard account. Click the link below to set a new password:</p>
+  <p>Someone requested a password reset for your CrewControl account. Click the link below to set a new password:</p>
 
   <p><%= link_to "Reset my password", edit_password_reset_url(token: @token) %></p>
 
@@ -16,6 +16,6 @@
 
   <p>If you didn't request this, you can safely ignore this email.</p>
 
-  <p>— The CrewBoard Team</p>
+  <p>— The CrewControl Team</p>
 </body>
 </html>

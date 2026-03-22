@@ -4,6 +4,6 @@ class InviteMailer < ApplicationMailer
     @account = invite.account
     @accept_url = accept_invite_url(token: invite.token)
 
-    mail to: invite.email, subject: "You've been invited to #{@account.name} on CrewBoard"
+    mail to: invite.email, subject: "You've been invited to #{@account.name} on CrewControl"
   end
 end

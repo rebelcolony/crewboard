@@ -19,7 +19,7 @@ class RegistrationsController < ApplicationController
 
     start_session(@manager)
     AccountMailer.welcome(@manager).deliver_later
-    redirect_to dashboard_path, notice: "Welcome to CrewBoard!"
+    redirect_to dashboard_path, notice: "Welcome to CrewControl!"
   rescue ActiveRecord::RecordInvalid
     render :new, status: :unprocessable_entity
   end

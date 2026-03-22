@@ -3,7 +3,7 @@ class AccountMailer < ApplicationMailer
     @manager = manager
     @account = manager.account
 
-    mail to: manager.email_address, subject: "Welcome to CrewBoard!"
+    mail to: manager.email_address, subject: "Welcome to CrewControl!"
   end
 
   def subscription_confirmed(account)

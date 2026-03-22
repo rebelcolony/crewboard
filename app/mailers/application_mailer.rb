@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "CrewBoard <notifications@crewboard.com>"
+  default from: "CrewControl <notifications@crew-control.io>"
   layout "mailer"
 end

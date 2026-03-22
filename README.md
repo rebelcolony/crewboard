@@ -1,4 +1,4 @@
-# CrewBoard
+# CrewControl
 
 A visual project management dashboard built for team managers who need an at-a-glance view of crew assignments across multiple projects. Designed for scenarios like offshore inspection management, where a project manager needs to know who is where and what state each project is in.
 

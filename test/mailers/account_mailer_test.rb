@@ -10,7 +10,7 @@ class AccountMailerTest < ActionMailer::TestCase
     end
 
     assert_equal [manager.email_address], email.to
-    assert_equal "Welcome to CrewBoard!", email.subject
+    assert_equal "Welcome to CrewControl!", email.subject
     assert_match manager.account.name, email.body.encoded
     assert_match "Free", email.body.encoded
     assert_match "2 projects", email.body.encoded

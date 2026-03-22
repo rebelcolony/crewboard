@@ -10,7 +10,7 @@ class PasswordMailerTest < ActionMailer::TestCase
     end
 
     assert_equal [ manager.email_address ], email.to
-    assert_equal "Reset your CrewBoard password", email.subject
+    assert_equal "Reset your CrewControl password", email.subject
     assert_match "Reset my password", email.body.encoded
     assert_match "password_reset", email.body.encoded
     assert_match "2 hours", email.body.encoded

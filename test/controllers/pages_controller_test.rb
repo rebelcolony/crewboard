@@ -4,7 +4,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
   test "GET root shows landing page for unauthenticated visitors" do
     get root_path
     assert_response :success
-    assert_match "CrewBoard", response.body
+    assert_match "CrewControl", response.body
     assert_match "Get Started", response.body
   end
 

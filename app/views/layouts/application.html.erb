@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title><%= content_for(:title) || "CrewBoard" %></title>
+    <title><%= content_for(:title) || "CrewControl" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
@@ -19,7 +19,7 @@
     <nav class="navbar">
       <div class="navbar-brand">
         <%= link_to dashboard_path, class: "navbar-logo" do %>
-          CrewBoard<% if Current.account %><span class="navbar-tenant"> / <%= Current.account.name %></span><% end %>
+          CrewControl<% if Current.account %><span class="navbar-tenant"> / <%= Current.account.name %></span><% end %>
         <% end %>
       </div>
 

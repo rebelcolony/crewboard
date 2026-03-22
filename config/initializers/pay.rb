@@ -1,6 +1,6 @@
 Pay.setup do |config|
-  config.business_name = "CrewBoard"
+  config.business_name = "CrewControl"
   config.business_address = "Aberdeen, UK"
-  config.application_name = "CrewBoard"
-  config.support_email = "support@crewboard.com"
+  config.application_name = "CrewControl"
+  config.support_email = "support@crew-control.io"
 end
