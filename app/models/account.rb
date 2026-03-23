@@ -26,13 +26,13 @@ class Account < ApplicationRecord
 
   PROJECT_LIMITS = {
     "free" => 2,
-    "starter" => 10,
+    "starter" => 5,
     "pro" => nil  # unlimited
   }.freeze
 
   CREW_LIMITS = {
-    "free" => 5,
-    "starter" => 15,
+    "free" => 20,
+    "starter" => 50,
     "pro" => nil  # unlimited
   }.freeze
 
