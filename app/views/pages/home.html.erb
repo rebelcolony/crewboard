@@ -29,27 +29,22 @@
 <%# ── Hero ── %>
 <section class="hero">
   <div class="marketing-container">
-    <span class="hero-eyebrow">Team coordination software</span>
+    <span class="hero-eyebrow">COMMAND YOUR FLEET</span>
 
     <h1 class="hero-headline">
       Every team. Every project.<br>
-      One clear view.
+      <span class="hero-gradient">One clear view.</span>
     </h1>
 
     <p class="hero-subheadline">
-      CrewControl gives managers complete visibility over people, projects, and assignments
-      in real time — so you always know who’s working on what, where, and what needs attention next.
+      The centralized coordination hub for high-performance crews. Stop
+      guessing and start commanding with real-time visual operational
+      control.
     </p>
 
     <div class="hero-actions">
-      <%= link_to "Get Started Free", new_registration_path, class: "btn btn-primary btn-lg" %>
-      <%= link_to "See Features", "#features", class: "btn btn-ghost btn-lg" %>
-    </div>
-
-    <div class="hero-proof">
-      <span class="badge badge-accent">Live team allocation</span>
-      <span class="badge badge-success">Real-time visibility</span>
-      <span class="badge badge-secondary">Multi-project oversight</span>
+      <%= link_to "Launch Dashboard", new_registration_path, class: "btn btn-primary btn-lg" %>
+      <%= link_to "Watch Demo", "#features", class: "btn btn-ghost btn-lg" %>
     </div>
   </div>
 </section>
@@ -57,40 +52,40 @@
 <%# ── Problem / Before Section ── %>
 <section class="story-section story-section-chaos">
   <div class="marketing-container">
-    <div class="story-grid">
-      <div class="story-copy">
-        <span class="section-kicker">The problem</span>
-        <h2 class="section-title section-title-left">
-          Managing multiple teams shouldn’t feel like this
+    <div class="problem-grid">
+      <span class="problem-pill">THE PROBLEM</span>
+
+      <div class="problem-image-frame">
+        <%= image_tag "chaos-whiteboard.png",
+            alt: "Overwhelmed manager looking at a chaotic project coordination whiteboard",
+            class: "problem-image" %>
+      </div>
+
+      <div class="problem-content">
+        <h2 class="problem-title">
+          Managing multiple teams shouldn’t feel like this.
         </h2>
-        <p class="section-subtitle section-subtitle-left">
-          When team allocation lives across whiteboards, sticky notes, phone calls, spreadsheets,
-          and memory, project coordination becomes reactive, fragile, and hard to scale.
+        <p class="problem-description">
+          When your coordination relies on disconnected tools,
+          mission-critical details fall through the cracks. It’s time to
+          retire the legacy friction.
         </p>
 
-        <div class="story-points">
-          <div class="story-point">
+        <div class="problem-points">
+          <div class="problem-point">
             <strong>No single source of truth</strong>
             <p>Assignments change fast, but updates don’t always reach everyone who needs them.</p>
           </div>
 
-          <div class="story-point">
+          <div class="problem-point">
             <strong>Too much manual coordination</strong>
             <p>Managers waste time chasing who’s available, who moved, and what project is now at risk.</p>
           </div>
 
-          <div class="story-point">
+          <div class="problem-point">
             <strong>Visibility breaks as you grow</strong>
             <p>What works for two teams quickly breaks down when you’re coordinating five, ten, or more.</p>
           </div>
-        </div>
-      </div>
-
-      <div class="story-visual">
-        <div class="story-image-frame">
-          <%= image_tag "chaos-whiteboard.png",
-              alt: "Project manager facing a messy whiteboard while trying to coordinate multiple teams and projects",
-              class: "story-image" %>
         </div>
       </div>
     </div>
