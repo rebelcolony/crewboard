@@ -6,13 +6,21 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   driven_by :selenium, using: :headless_chrome, screen_size: [ 1400, 900 ]
 
+  setup do
+    # Session/password-reset rate limit state lives in the cache and can leak
+    # across system tests running in one process.
+    Rails.cache.clear
+  end
+
   private
 
   def system_sign_in(email: "admin@crewboard.com", password: "password123")
     visit new_session_path
-    fill_in "Email", with: email
-    fill_in "Password", with: password
-    click_on "Sign In"
+    within("form.auth-form") do
+      fill_in "Email", with: email
+      fill_in "Password", with: password
+      click_on "Sign In"
+    end
   end
 
   def subscribe_account_to!(plan, account: accounts(:aberdeen), processor_plan: "price_#{plan}_test", **attributes)

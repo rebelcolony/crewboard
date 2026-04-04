@@ -56,6 +56,7 @@ class BillingsControllerTest < ActionDispatch::IntegrationTest
       trial_ends_at: Time.zone.local(2026, 3, 15),
       ends_at: Time.zone.local(2026, 4, 1)
     )
+    subscription = account.payment_processor.subscriptions.order(created_at: :desc).first
 
     payment_method = stub(
       data: { "last4" => "4242", "exp_month" => 12, "exp_year" => 2030 },
@@ -71,8 +72,13 @@ class BillingsControllerTest < ActionDispatch::IntegrationTest
     charges_scope = stub
     charges_scope.stubs(:order).with(created_at: :desc).returns(charges_scope)
     charges_scope.stubs(:limit).with(20).returns([ charge ])
+    subscription_scope = stub
+    subscription_scope.stubs(:active).returns(subscription_scope)
+    subscription_scope.stubs(:order).with(created_at: :desc).returns(subscription_scope)
+    subscription_scope.stubs(:first).returns(subscription)
 
     processor = account.payment_processor
+    processor.stubs(:subscriptions).returns(subscription_scope)
     processor.stubs(:payment_methods).returns([ payment_method ])
     processor.stubs(:charges).returns(charges_scope)
     Account.any_instance.stubs(:payment_processor).returns(processor)

@@ -24,9 +24,8 @@ class ProfileManagementTest < ApplicationSystemTestCase
     assert_text "Password updated."
 
     click_on "Sign Out"
-    fill_in "Email", with: "admin@crewboard.com"
-    fill_in "Password", with: "newsecurepass"
-    click_on "Sign In"
+    assert_current_path new_session_path
+    system_sign_in(password: "newsecurepass")
 
     assert_current_path dashboard_path
     assert_text "Unassigned Crew"
