@@ -1657,6 +1657,22 @@ a:hover { text-decoration: underline; }
   gap: 0.75rem;
 }
 
+.problem-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  margin: 0 auto 1rem;
+}
+
+.problem-icon i {
+  font-size: 24px;
+}
+
 .problem-point strong {
   display: block;
   font-size: 1rem;
