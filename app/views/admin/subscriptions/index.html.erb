@@ -17,16 +17,16 @@
     <tbody>
       <% @subscriptions.each do |subscription| %>
         <tr>
-          <td><%= subscription.customer.owner.try(:name) || subscription.customer.owner_type %></td>
-          <td><%= subscription.name %></td>
-          <td>
+          <td data-label="Customer"><%= subscription.customer.owner.try(:name) || subscription.customer.owner_type %></td>
+          <td data-label="Plan"><%= subscription.name %></td>
+          <td data-label="Status">
             <span class="badge badge-<%= subscription.active? ? 'success' : 'secondary' %>">
               <%= subscription.status %>
             </span>
           </td>
-          <td class="text-secondary"><%= subscription.processor_plan %></td>
-          <td class="text-secondary text-sm"><%= subscription.created_at.strftime("%b %d, %Y") %></td>
-          <td class="table-actions">
+          <td data-label="Processor" class="text-secondary"><%= subscription.processor_plan %></td>
+          <td data-label="Created" class="text-secondary text-sm"><%= subscription.created_at.strftime("%b %d, %Y") %></td>
+          <td data-label="Actions" class="table-actions">
             <%= link_to "View", admin_subscription_path(subscription), class: "btn btn-sm btn-secondary" %>
           </td>
         </tr>

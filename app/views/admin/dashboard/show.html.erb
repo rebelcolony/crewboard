@@ -25,11 +25,11 @@
   <tbody>
     <% @recent_accounts.each do |account| %>
       <tr>
-        <td><%= link_to account.name, admin_account_path(account) %></td>
-        <td><span class="badge badge-accent"><%= account.plan_name.capitalize %></span></td>
-        <td><%= account.managers.count %></td>
-        <td><%= account.projects.count %></td>
-        <td class="text-secondary text-sm"><%= account.created_at.strftime("%b %d, %Y") %></td>
+        <td data-label="Name"><%= link_to account.name, admin_account_path(account) %></td>
+        <td data-label="Plan"><span class="badge badge-accent"><%= account.plan_name.capitalize %></span></td>
+        <td data-label="Managers"><%= account.managers.count %></td>
+        <td data-label="Projects"><%= account.projects.count %></td>
+        <td data-label="Created" class="text-secondary text-sm"><%= account.created_at.strftime("%b %d, %Y") %></td>
       </tr>
     <% end %>
   </tbody>

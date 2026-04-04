@@ -55,20 +55,37 @@ class CrewMembersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "GET new redirects to pricing when crew limit reached" do
-    # Free plan allows 5 crew. Add 3 more to hit 5 (aberdeen has 2 fixtures)
-    3.times { |i| Current.account = accounts(:aberdeen); accounts(:aberdeen).crew_members.create!(name: "Extra #{i}", role: "Test", email: "extra#{i}@test.com") }
+    fill_crew_limit!
+
     get new_crew_member_path
+
     assert_redirected_to pricing_path
     assert_match "limit", flash[:alert]
   end
 
   test "POST create redirects to pricing when crew limit reached" do
-    3.times { |i| accounts(:aberdeen).crew_members.create!(name: "Extra #{i}", role: "Test", email: "extra#{i}@test.com") }
+    fill_crew_limit!
+
     assert_no_difference "CrewMember.count" do
       post crew_members_path, params: {
         crew_member: { name: "Blocked Person", role: "Inspector", email: "blocked@crewboard.com" }
       }
     end
+
     assert_redirected_to pricing_path
+  end
+
+  private
+
+  def fill_crew_limit!(account = accounts(:aberdeen))
+    remaining_slots = account.crew_member_limit - account.crew_members.count
+
+    remaining_slots.times do |i|
+      account.crew_members.create!(
+        name: "Extra #{i}",
+        role: "Test",
+        email: "extra#{i}@test.com"
+      )
+    end
   end
 end

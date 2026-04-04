@@ -59,7 +59,7 @@
   <%= javascript_importmap_tags %>
 </head>
 <body class="marketing-body">
-  <nav class="marketing-nav">
+  <nav class="marketing-nav" data-controller="mobile-nav" data-action="resize@window->mobile-nav#closeOnDesktop">
     <div class="marketing-nav-inner">
       <a href="<%= root_path %>" class="marketing-logo">CrewControl</a>
       <div class="marketing-nav-links">

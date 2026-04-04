@@ -19,49 +19,61 @@
   </head>
 
   <body data-controller="theme">
-    <nav class="navbar">
+    <nav class="navbar" data-controller="mobile-nav" data-action="resize@window->mobile-nav#closeOnDesktop">
       <div class="navbar-brand">
         <%= link_to dashboard_path, class: "navbar-logo" do %>
           CrewControl<% if Current.account %><span class="navbar-tenant"> / <%= Current.account.name %></span><% end %>
         <% end %>
       </div>
 
-      <div class="navbar-links">
-        <%= link_to dashboard_path, class: "navbar-link #{'active' if controller_name == 'dashboard'}" do %>
-          <i class="fa-solid fa-grip"></i> Dashboard
-        <% end %>
-        <%= link_to projects_path, class: "navbar-link #{'active' if controller_name == 'projects'}" do %>
-          <i class="fa-solid fa-folder-open"></i> Projects
-        <% end %>
-        <%= link_to crew_members_path, class: "navbar-link #{'active' if controller_name == 'crew_members'}" do %>
-          <i class="fa-solid fa-users"></i> Crew
-        <% end %>
-        <% if authenticated? %>
-          <%= link_to invites_path, class: "navbar-link #{'active' if controller_name == 'invites'}" do %>
-            <i class="fa-solid fa-user-plus"></i> Team
+      <button
+        type="button"
+        class="nav-menu-toggle"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        data-action="click->mobile-nav#toggle"
+        data-mobile-nav-target="button">
+        <span aria-hidden="true">&#9776;</span>
+      </button>
+
+      <div class="nav-menu-panel" data-mobile-nav-target="menu">
+        <div class="navbar-links">
+          <%= link_to dashboard_path, class: "navbar-link #{'active' if controller_name == 'dashboard'}", data: { action: "click->mobile-nav#close" } do %>
+            <i class="fa-solid fa-grip"></i> Dashboard
           <% end %>
-          <%= link_to billing_path, class: "navbar-link #{'active' if controller_name == 'billings'}" do %>
-            <i class="fa-solid fa-credit-card"></i> Billing
+          <%= link_to projects_path, class: "navbar-link #{'active' if controller_name == 'projects'}", data: { action: "click->mobile-nav#close" } do %>
+            <i class="fa-solid fa-folder-open"></i> Projects
           <% end %>
-          <%= link_to profile_path, class: "navbar-link #{'active' if controller_name == 'profile'}" do %>
-            <i class="fa-solid fa-user-gear"></i> Profile
+          <%= link_to crew_members_path, class: "navbar-link #{'active' if controller_name == 'crew_members'}", data: { action: "click->mobile-nav#close" } do %>
+            <i class="fa-solid fa-users"></i> Crew
           <% end %>
-          <% if Current.manager&.super_admin? %>
-            <%= link_to admin_root_path, class: "navbar-link" do %>
-              <i class="fa-solid fa-shield-halved"></i> Admin
+          <% if authenticated? %>
+            <%= link_to invites_path, class: "navbar-link #{'active' if controller_name == 'invites'}", data: { action: "click->mobile-nav#close" } do %>
+              <i class="fa-solid fa-user-plus"></i> Team
+            <% end %>
+            <%= link_to billing_path, class: "navbar-link #{'active' if controller_name == 'billings'}", data: { action: "click->mobile-nav#close" } do %>
+              <i class="fa-solid fa-credit-card"></i> Billing
+            <% end %>
+            <%= link_to profile_path, class: "navbar-link #{'active' if controller_name == 'profile'}", data: { action: "click->mobile-nav#close" } do %>
+              <i class="fa-solid fa-user-gear"></i> Profile
+            <% end %>
+            <% if Current.manager&.super_admin? %>
+              <%= link_to admin_root_path, class: "navbar-link", data: { action: "click->mobile-nav#close" } do %>
+                <i class="fa-solid fa-shield-halved"></i> Admin
+              <% end %>
             <% end %>
           <% end %>
-        <% end %>
-      </div>
+        </div>
 
-      <div class="navbar-actions">
-        <button class="theme-toggle" data-action="click->theme#toggle" data-theme-target="button" title="Toggle theme">
-          <span class="theme-toggle-icon" data-theme-target="icon"></span>
-        </button>
+        <div class="navbar-actions">
+          <button class="theme-toggle" data-action="click->theme#toggle" data-theme-target="button" title="Toggle theme">
+            <span class="theme-toggle-icon" data-theme-target="icon"></span>
+          </button>
 
-        <% if authenticated? %>
-          <%= button_to "Sign Out", session_path, method: :delete, class: "btn btn-sm btn-secondary" %>
-        <% end %>
+          <% if authenticated? %>
+            <%= button_to "Sign Out", session_path, method: :delete, class: "btn btn-sm btn-secondary" %>
+          <% end %>
+        </div>
       </div>
     </nav>
 
