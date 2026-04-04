@@ -100,12 +100,32 @@ class AccountTest < ActiveSupport::TestCase
     assert_equal "pro", account.reload.plan_name
   end
 
+  test "plan_name returns the most recent active subscription name" do
+    account = accounts(:aberdeen)
+    account.set_payment_processor :stripe, processor_id: "cus_test_latest"
+    account.payment_processor.subscriptions.create!(
+      name: "starter",
+      processor_id: "sub_test_latest_old",
+      processor_plan: "price_starter_test",
+      status: "active",
+      created_at: 1.day.ago
+    )
+    account.payment_processor.subscriptions.create!(
+      name: "pro",
+      processor_id: "sub_test_latest_new",
+      processor_plan: "price_pro_test",
+      status: "active"
+    )
+
+    assert_equal "pro", account.reload.plan_name
+  end
+
   test "project_limit returns 2 for free plan" do
     account = Account.new(name: "Test")
     assert_equal 2, account.project_limit
   end
 
-  test "project_limit returns 10 for starter plan" do
+  test "project_limit returns 5 for starter plan" do
     account = accounts(:aberdeen)
     account.set_payment_processor :stripe, processor_id: "cus_test_limit"
     account.payment_processor.subscriptions.create!(
@@ -114,7 +134,7 @@ class AccountTest < ActiveSupport::TestCase
       processor_plan: "price_starter_test",
       status: "active"
     )
-    assert_equal 10, account.reload.project_limit
+    assert_equal 5, account.reload.project_limit
   end
 
   test "project_limit returns nil (unlimited) for pro plan" do
@@ -155,12 +175,12 @@ class AccountTest < ActiveSupport::TestCase
 
   # --- Crew member limits ---
 
-  test "crew_member_limit returns 5 for free plan" do
+  test "crew_member_limit returns 20 for free plan" do
     account = Account.new(name: "Test")
-    assert_equal 5, account.crew_member_limit
+    assert_equal 20, account.crew_member_limit
   end
 
-  test "crew_member_limit returns 15 for starter plan" do
+  test "crew_member_limit returns 50 for starter plan" do
     account = accounts(:aberdeen)
     account.set_payment_processor :stripe, processor_id: "cus_crew_starter"
     account.payment_processor.subscriptions.create!(
@@ -169,7 +189,7 @@ class AccountTest < ActiveSupport::TestCase
       processor_plan: "price_starter_test",
       status: "active"
     )
-    assert_equal 15, account.reload.crew_member_limit
+    assert_equal 50, account.reload.crew_member_limit
   end
 
   test "crew_member_limit returns nil (unlimited) for pro plan" do
@@ -186,14 +206,13 @@ class AccountTest < ActiveSupport::TestCase
 
   test "crew_member_limit_reached? is true when at free-tier limit" do
     account = accounts(:aberdeen)
-    # aberdeen has 2 crew, free limit is 5 — add 3 more
-    3.times { |i| account.crew_members.create!(name: "Extra #{i}", role: "Test", email: "extra#{i}@test.com") }
+    remaining_slots = account.crew_member_limit - account.crew_members.count
+    remaining_slots.times { |i| account.crew_members.create!(name: "Extra #{i}", role: "Test", email: "extra#{i}@test.com") }
     assert account.crew_member_limit_reached?
   end
 
   test "crew_member_limit_reached? is false when under limit" do
     account = accounts(:aberdeen)
-    # aberdeen has 2 crew, free limit is 5
     assert_not account.crew_member_limit_reached?
   end
 
@@ -219,7 +238,19 @@ class AccountTest < ActiveSupport::TestCase
 
   test "crew_member_usage_percent returns percentage of limit used" do
     account = accounts(:aberdeen)
-    # 2 crew members, limit 5 = 40%
-    assert_equal 40, account.crew_member_usage_percent
+    assert_equal 10, account.crew_member_usage_percent
+  end
+
+  test "crew_member_usage_percent returns 0 for unlimited plan" do
+    account = accounts(:aberdeen)
+    account.set_payment_processor :stripe, processor_id: "cus_usage_crew_pro"
+    account.payment_processor.subscriptions.create!(
+      name: "pro",
+      processor_id: "sub_usage_crew_pro",
+      processor_plan: "price_pro_test",
+      status: "active"
+    )
+
+    assert_equal 0, account.reload.crew_member_usage_percent
   end
 end

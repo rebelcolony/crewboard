@@ -11,22 +11,34 @@
   </head>
 
   <body data-controller="theme">
-    <nav class="navbar">
+    <nav class="navbar" data-controller="mobile-nav" data-action="resize@window->mobile-nav#closeOnDesktop">
       <div class="navbar-brand">
         <%= link_to "CrewControl", root_path, class: "navbar-logo" %>
         <span class="admin-badge">Admin</span>
       </div>
 
-      <div class="navbar-links">
-        <%= link_to "Back to App", root_path, class: "navbar-link" %>
-      </div>
+      <button
+        type="button"
+        class="nav-menu-toggle"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        data-action="click->mobile-nav#toggle"
+        data-mobile-nav-target="button">
+        <span aria-hidden="true">&#9776;</span>
+      </button>
 
-      <div class="navbar-actions">
-        <button class="theme-toggle" data-action="click->theme#toggle" data-theme-target="button" title="Toggle theme">
-          <span class="theme-toggle-icon" data-theme-target="icon"></span>
-        </button>
+      <div class="nav-menu-panel" data-mobile-nav-target="menu">
+        <div class="navbar-links">
+          <%= link_to "Back to App", root_path, class: "navbar-link", data: { action: "click->mobile-nav#close" } %>
+        </div>
 
-        <%= button_to "Sign Out", session_path, method: :delete, class: "btn btn-sm btn-secondary" %>
+        <div class="navbar-actions">
+          <button class="theme-toggle" data-action="click->theme#toggle" data-theme-target="button" title="Toggle theme">
+            <span class="theme-toggle-icon" data-theme-target="icon"></span>
+          </button>
+
+          <%= button_to "Sign Out", session_path, method: :delete, class: "btn btn-sm btn-secondary" %>
+        </div>
       </div>
     </nav>
 

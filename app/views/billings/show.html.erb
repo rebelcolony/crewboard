@@ -37,6 +37,9 @@
           <span><%= @subscription.ends_at.strftime("%b %d, %Y") %></span>
         </div>
       <% end %>
+      <div style="margin-top: 1rem;">
+        <%= button_to "Manage Billing", portal_billing_path, method: :post, class: "btn btn-secondary" %>
+      </div>
     <% else %>
       <div style="margin-top: 1rem;">
         <p class="text-secondary">You're on the free plan (up to <%= @account.project_limit %> projects).</p>
@@ -86,14 +89,14 @@
       <tbody>
         <% @charges.each do |charge| %>
           <tr>
-            <td><%= charge.created_at.strftime("%b %d, %Y") %></td>
-            <td><%= number_to_currency(charge.amount / 100.0, unit: charge.currency == "gbp" ? "£" : "$") %></td>
-            <td>
+            <td data-label="Date"><%= charge.created_at.strftime("%b %d, %Y") %></td>
+            <td data-label="Amount"><%= number_to_currency(charge.amount / 100.0, unit: charge.currency == "gbp" ? "£" : "$") %></td>
+            <td data-label="Status">
               <span class="badge badge-<%= charge.amount_refunded.to_i > 0 ? 'warning' : 'success' %>">
                 <%= charge.amount_refunded.to_i > 0 ? "Refunded" : "Paid" %>
               </span>
             </td>
-            <td class="table-actions">
+            <td data-label="Receipt" class="table-actions">
               <% if charge.data&.dig("receipt_url").present? %>
                 <%= link_to "Receipt", charge.data["receipt_url"], target: "_blank", rel: "noopener", class: "btn btn-sm btn-secondary" %>
               <% end %>

@@ -112,7 +112,7 @@
 
 <%# Active Sessions %>
 <div class="card" style="margin-top: 1.5rem;">
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+  <div class="section-header">
     <h3><i class="fa-solid fa-desktop"></i> Active Sessions</h3>
     <% if @manager.sessions.count > 1 %>
       <%= button_to "Sign Out All Others", profile_path(section: "sessions"), method: :patch, class: "btn btn-sm btn-danger" %>
@@ -130,10 +130,10 @@
     <tbody>
       <% @manager.sessions.order(created_at: :desc).each do |session| %>
         <tr>
-          <td><%= session.ip_address %></td>
-          <td class="text-sm"><%= truncate(session.user_agent.to_s, length: 60) %></td>
-          <td><%= time_ago_in_words(session.created_at) %> ago</td>
-          <td class="table-actions">
+          <td data-label="IP Address"><%= session.ip_address %></td>
+          <td data-label="Browser" class="text-sm"><%= truncate(session.user_agent.to_s, length: 60) %></td>
+          <td data-label="Signed In"><%= time_ago_in_words(session.created_at) %> ago</td>
+          <td data-label="Current Session" class="table-actions">
             <% if session == Current.session %>
               <span class="badge badge-accent">Current</span>
             <% end %>

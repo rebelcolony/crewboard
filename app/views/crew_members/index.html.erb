@@ -17,7 +17,7 @@
   <tbody>
     <% @crew_members.each do |member| %>
       <tr>
-        <td>
+        <td data-label="Avatar">
           <div class="avatar avatar-sm">
             <img src="<%= member.avatar_url(size: 64) %>"
                  alt="<%= member.name %>"
@@ -27,11 +27,11 @@
             <span class="avatar-initials" style="display: none;"><%= member.initials %></span>
           </div>
         </td>
-        <td><%= member.name %></td>
-        <td><%= member.role %></td>
-        <td><%= member.email %></td>
-        <td><%= member.project&.name || "Unassigned" %></td>
-        <td class="table-actions">
+        <td data-label="Name"><%= member.name %></td>
+        <td data-label="Role"><%= member.role %></td>
+        <td data-label="Email"><%= member.email %></td>
+        <td data-label="Project"><%= member.project&.name || "Unassigned" %></td>
+        <td data-label="Actions" class="table-actions">
           <%= link_to "Edit", edit_crew_member_path(member), class: "btn btn-sm btn-secondary" %>
           <%= button_to "Delete", crew_member_path(member), method: :delete, class: "btn btn-sm btn-danger", data: { turbo_confirm: "Remove #{member.name}?" } %>
         </td>

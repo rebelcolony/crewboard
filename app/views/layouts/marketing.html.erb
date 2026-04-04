@@ -55,14 +55,27 @@
   <%= javascript_importmap_tags %>
 </head>
 <body class="marketing-body">
-  <nav class="marketing-nav">
+  <nav class="marketing-nav" data-controller="mobile-nav" data-action="resize@window->mobile-nav#closeOnDesktop">
     <div class="marketing-nav-inner">
       <a href="<%= root_path %>" class="marketing-logo">CrewControl</a>
-      <div class="marketing-nav-links">
-        <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
-        <%= link_to "Sign In", new_session_path, class: "btn btn-ghost" %>
-        <%= link_to "Get Started", new_registration_path, class: "btn btn-primary btn-sm" %>
+
+      <button
+        type="button"
+        class="nav-menu-toggle"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        data-action="click->mobile-nav#toggle"
+        data-mobile-nav-target="button">
+        <span aria-hidden="true">&#9776;</span>
+      </button>
+
+      <div class="nav-menu-panel" data-mobile-nav-target="menu">
+        <div class="marketing-nav-links">
+          <a href="#features" data-action="click->mobile-nav#close">Features</a>
+          <a href="#pricing" data-action="click->mobile-nav#close">Pricing</a>
+          <%= link_to "Sign In", new_session_path, class: "btn btn-ghost", data: { action: "click->mobile-nav#close" } %>
+          <%= link_to "Get Started", new_registration_path, class: "btn btn-primary btn-sm", data: { action: "click->mobile-nav#close" } %>
+        </div>
       </div>
     </div>
   </nav>

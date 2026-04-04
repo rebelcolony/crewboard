@@ -15,7 +15,7 @@
       </div>
     <% end %>
 
-    <div style="display: flex; gap: 0.75rem; align-items: flex-end;">
+    <div class="form-inline">
       <div class="form-group" style="flex: 1; margin-bottom: 0;">
         <%= f.label :email, "Email Address" %>
         <%= f.email_field :email, required: true, placeholder: "colleague@example.com" %>
@@ -39,20 +39,20 @@
     <tbody>
       <% @managers.each do |manager| %>
         <tr>
-          <td>
+          <td data-label="Email">
             <%= manager.email_address %>
             <% if manager == Current.manager %>
               <span class="badge badge-accent">You</span>
             <% end %>
           </td>
-          <td>
+          <td data-label="Role">
             <% if manager.super_admin? %>
               <span class="badge badge-warning">Admin</span>
             <% else %>
               <span class="badge badge-secondary">Member</span>
             <% end %>
           </td>
-          <td><%= manager.created_at.strftime("%b %d, %Y") %></td>
+          <td data-label="Joined"><%= manager.created_at.strftime("%b %d, %Y") %></td>
         </tr>
       <% end %>
     </tbody>
@@ -75,10 +75,10 @@
       <tbody>
         <% @pending_invites.each do |invite| %>
           <tr>
-            <td><%= invite.email %></td>
-            <td><%= time_ago_in_words(invite.created_at) %> ago</td>
-            <td><%= invite.invited_by.email_address %></td>
-            <td class="table-actions">
+            <td data-label="Email"><%= invite.email %></td>
+            <td data-label="Sent"><%= time_ago_in_words(invite.created_at) %> ago</td>
+            <td data-label="Invited By"><%= invite.invited_by.email_address %></td>
+            <td data-label="Actions" class="table-actions">
               <%= button_to "Revoke", invite_path(invite), method: :delete, class: "btn btn-sm btn-danger" %>
             </td>
           </tr>

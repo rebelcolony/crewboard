@@ -19,7 +19,7 @@
 
         <div class="detail-row">
           <span class="detail-label">Progress</span>
-          <div style="display: flex; align-items: center; gap: 0.5rem; flex: 1;">
+          <div class="detail-control">
             <%= f.range_field :progress, min: 0, max: 100, step: 5, class: "inline-range", data: { action: "input->inline-edit#updateProgress input->inline-edit#save", "inline-edit-target": "range" } %>
             <span data-inline-edit-target="progressValue" class="inline-progress-value"><%= project.progress %>%</span>
           </div>
