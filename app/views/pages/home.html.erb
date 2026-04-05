@@ -104,67 +104,7 @@
 <%# ── Solution Section ── %>
 <section class="story-section story-section-solution">
   <div class="marketing-container">
-    <div class="story-grid story-grid-reverse">
-      <div class="story-visual">
-        <div class="solution-preview card">
-          <div class="solution-preview-header">
-            <div>
-              <div class="solution-preview-title">Operations Dashboard</div>
-              <div class="solution-preview-subtitle">Live team allocation across projects</div>
-            </div>
-            <span class="badge badge-success">Live</span>
-          </div>
-
-          <div class="solution-project-list">
-            <div class="solution-project">
-              <div class="solution-project-top">
-                <strong>Project Atlas</strong>
-                <span class="badge badge-accent">On Track</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress-bar-fill progress-bar-success" style="width: 72%;"></div>
-              </div>
-              <div class="solution-avatars">
-                <span class="avatar avatar-sm"><span class="avatar-initials">AB</span></span>
-                <span class="avatar avatar-sm"><span class="avatar-initials">JT</span></span>
-                <span class="avatar avatar-sm"><span class="avatar-initials">MS</span></span>
-              </div>
-            </div>
-
-            <div class="solution-project">
-              <div class="solution-project-top">
-                <strong>North Terminal</strong>
-                <span class="badge badge-warning">Attention</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress-bar-fill progress-bar-warning" style="width: 41%;"></div>
-              </div>
-              <div class="solution-avatars">
-                <span class="avatar avatar-sm"><span class="avatar-initials">RK</span></span>
-                <span class="avatar avatar-sm"><span class="avatar-initials">PL</span></span>
-              </div>
-            </div>
-
-            <div class="solution-project">
-              <div class="solution-project-top">
-                <strong>Field Services East</strong>
-                <span class="badge badge-secondary">Planning</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress-bar-fill progress-bar-accent" style="width: 58%;"></div>
-              </div>
-              <div class="solution-avatars">
-                <span class="avatar avatar-sm"><span class="avatar-initials">DM</span></span>
-                <span class="avatar avatar-sm"><span class="avatar-initials">SC</span></span>
-                <span class="avatar avatar-sm"><span class="avatar-initials">JB</span></span>
-                <span class="avatar avatar-sm"><span class="avatar-initials">EL</span></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="story-copy">
+    <div class="story-copy">
         <span class="section-kicker">The solution</span>
         <h2 class="section-title section-title-left">
           Replace operational chaos with visual control
@@ -174,18 +114,23 @@
           and assignment changes — all in one place.
         </p>
 
+        <img src="<%= image_path('solution-ui.png') %>" alt="Solution UI" class="solution-ui-image" />
+
         <div class="story-points">
           <div class="story-point">
+            <i class="fa-solid fa-eye"></i>
             <strong>See everything at a glance</strong>
             <p>Projects, teams, progress, and status all appear in one clean operational view.</p>
           </div>
 
           <div class="story-point">
+            <i class="fa-solid fa-arrows-left-right"></i>
             <strong>Reassign people in seconds</strong>
             <p>Drag and drop team members between projects without the admin mess.</p>
           </div>
 
           <div class="story-point">
+            <i class="fa-solid fa-zap"></i>
             <strong>Make faster decisions</strong>
             <p>Spot bottlenecks, gaps, and overloaded teams before they become delays.</p>
           </div>
