@@ -221,11 +221,12 @@ a:hover { text-decoration: underline; }
 }
 
 .btn-primary {
-  background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
-  color: #fff;
+  background: linear-gradient(180deg, #05adf0 0%, #37f7fa 100%);
+  color: #0a0d1a;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.4), 0 -1px 1px rgba(0, 0, 0, 0.2);
 }
 .btn-primary:hover {
-  background: linear-gradient(90deg, #2563eb 0%, #7c3aed 100%);
+  background: linear-gradient(180deg, #0491cc 0%, #2ac9d6 100%);
   text-decoration: none;
 }
 
@@ -1394,10 +1395,10 @@ a:hover { text-decoration: underline; }
 /* Nav */
 .marketing-nav {
   border-bottom: 1px solid var(--color-border);
-  padding: 0.75rem 0;
+  padding: 0.5rem 0;
   position: sticky;
   top: 0;
-  background: var(--color-bg-primary);
+  background: #0a0d1a;
   z-index: 100;
 }
 
@@ -1408,19 +1409,19 @@ a:hover { text-decoration: underline; }
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
-<<<<<<< HEAD
   padding: 0 1.5rem;
-=======
-  gap: 0.75rem;
->>>>>>> ad11ff7ecf63c55dc141ce45be8d2ecb3d404f23
 }
 
 .marketing-logo {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--color-accent);
   text-decoration: none;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.logo-image {
+  height: 70px;
+  width: auto;
 }
 
 .marketing-nav-links {
@@ -1499,7 +1500,7 @@ a:hover { text-decoration: underline; }
 }
 
 .hero-gradient {
-  background: linear-gradient(90deg, #7cabf7 10%, #e8afee 100%);
+  background: linear-gradient(90deg, #05adf0 10%, #37f7fa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1979,7 +1980,7 @@ a:hover { text-decoration: underline; }
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-accent);
+  color: #13ffff;
   margin: 0 auto 1rem;
 }
 

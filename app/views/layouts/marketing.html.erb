@@ -61,7 +61,9 @@
 <body class="marketing-body">
   <nav class="marketing-nav" data-controller="mobile-nav" data-action="resize@window->mobile-nav#closeOnDesktop">
     <div class="marketing-nav-inner">
-      <a href="<%= root_path %>" class="marketing-logo">CrewControl</a>
+      <a href="<%= root_path %>" class="marketing-logo">
+        <%= image_tag "crew-control-logo.png", alt: "CrewControl", class: "logo-image" %>
+      </a>
       <div class="marketing-nav-links">
         <a href="#features">Features</a>
         <a href="#pricing">Pricing</a>
@@ -69,7 +71,7 @@
       </div>
       <div class="marketing-nav-actions">
         <%= link_to "Sign In", new_session_path, class: "btn btn-ghost" %>
-        <%= link_to "Get Started", new_registration_path, class: "btn btn-primary btn-sm" %>
+        <%= link_to "Free to Get Started", new_registration_path, class: "btn btn-primary btn-sm" %>
       </div>
     </div>
   </nav>
