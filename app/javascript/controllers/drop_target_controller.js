@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static values = { projectId: String }
+  static values = { projectId: String, status: { type: String, default: "available" } }
 
   dragover(event) {
     event.preventDefault()
@@ -30,7 +30,7 @@ export default class extends Controller {
         "X-CSRF-Token": csrfToken,
         "Accept": "text/vnd.turbo-stream.html"
       },
-      body: JSON.stringify({ crew_member: { project_id: projectId || null } })
+      body: JSON.stringify({ crew_member: { project_id: projectId || null, status: this.statusValue } })
     })
     .then(response => response.text())
     .then(html => {

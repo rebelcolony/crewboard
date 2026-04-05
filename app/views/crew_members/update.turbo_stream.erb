@@ -23,3 +23,23 @@
     </div>
   </div>
 <% end %>
+
+<%# Re-render the on-leave bar %>
+<%= turbo_stream.replace "on-leave-crew" do %>
+  <div id="on-leave-crew"
+       class="unassigned-bar on-leave-bar"
+       data-controller="drop-target"
+       data-drop-target-project-id-value=""
+       data-drop-target-status-value="on_leave"
+       data-action="dragover->drop-target#dragover dragleave->drop-target#dragleave drop->drop-target#drop">
+    <h3 class="unassigned-bar-title">Leave / Unavailable (<%= @on_leave_crew.size %>)</h3>
+    <div class="unassigned-bar-crew">
+      <% @on_leave_crew.each do |member| %>
+        <%= render "crew_members/crew_avatar", member: member %>
+      <% end %>
+      <% if @on_leave_crew.empty? %>
+        <p class="text-secondary">No crew on leave</p>
+      <% end %>
+    </div>
+  </div>
+<% end %>

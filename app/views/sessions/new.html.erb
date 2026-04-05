@@ -1,7 +1,7 @@
 <div class="auth-container">
   <div class="auth-card">
-    <h1 class="auth-title">CrewControl</h1>
-    <p class="auth-subtitle">Project Management Dashboard</p>
+    <%= image_tag "crew-control-logo.png", alt: "CrewControl", class: "auth-logo" %>
+    <p class="auth-subtitle">Sign in to your account</p>
 
     <% if flash[:alert] %>
       <div class="alert alert-danger"><%= flash[:alert] %></div>

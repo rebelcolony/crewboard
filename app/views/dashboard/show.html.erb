@@ -14,19 +14,38 @@
     <% end %>
   </div>
 
-  <div id="unassigned-crew"
-       class="unassigned-bar"
-       data-controller="drop-target"
-       data-drop-target-project-id-value=""
-       data-action="dragover->drop-target#dragover dragleave->drop-target#dragleave drop->drop-target#drop">
-    <h3 class="unassigned-bar-title">Unassigned Crew (<%= @unassigned_crew.size %>)</h3>
-    <div class="unassigned-bar-crew">
-      <% @unassigned_crew.each do |member| %>
-        <%= render "crew_members/crew_avatar", member: member %>
-      <% end %>
-      <% if @unassigned_crew.empty? %>
-        <p class="text-secondary">All crew members assigned</p>
-      <% end %>
+  <div class="bottom-bars">
+    <div id="unassigned-crew"
+         class="unassigned-bar"
+         data-controller="drop-target"
+         data-drop-target-project-id-value=""
+         data-action="dragover->drop-target#dragover dragleave->drop-target#dragleave drop->drop-target#drop">
+      <h3 class="unassigned-bar-title">Unassigned Crew (<%= @unassigned_crew.size %>)</h3>
+      <div class="unassigned-bar-crew">
+        <% @unassigned_crew.each do |member| %>
+          <%= render "crew_members/crew_avatar", member: member %>
+        <% end %>
+        <% if @unassigned_crew.empty? %>
+          <p class="text-secondary">All crew members assigned</p>
+        <% end %>
+      </div>
+    </div>
+
+    <div id="on-leave-crew"
+         class="unassigned-bar on-leave-bar"
+         data-controller="drop-target"
+         data-drop-target-project-id-value=""
+         data-drop-target-status-value="on_leave"
+         data-action="dragover->drop-target#dragover dragleave->drop-target#dragleave drop->drop-target#drop">
+      <h3 class="unassigned-bar-title">Leave / Unavailable (<%= @on_leave_crew.size %>)</h3>
+      <div class="unassigned-bar-crew">
+        <% @on_leave_crew.each do |member| %>
+          <%= render "crew_members/crew_avatar", member: member %>
+        <% end %>
+        <% if @on_leave_crew.empty? %>
+          <p class="text-secondary">No crew on leave</p>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
