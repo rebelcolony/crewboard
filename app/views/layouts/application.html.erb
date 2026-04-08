@@ -19,7 +19,7 @@
   </head>
 
   <body data-controller="theme">
-    <nav class="navbar" data-controller="mobile-nav" data-action="resize@window->mobile-nav#closeOnDesktop">
+    <nav class="navbar" data-controller="mobile-nav" data-action="resize@window->mobile-nav#closeOnDesktop turbo:before-cache@document->mobile-nav#closeBeforeCache">
       <div class="navbar-brand">
         <%= link_to dashboard_path, class: "navbar-logo" do %>
           CrewControl<% if Current.account %><span class="navbar-tenant"> / <%= Current.account.name %></span><% end %>
@@ -30,49 +30,72 @@
         type="button"
         class="nav-menu-toggle"
         aria-label="Toggle navigation"
+        aria-controls="app-navigation"
         aria-expanded="false"
         data-action="click->mobile-nav#toggle"
         data-mobile-nav-target="button">
-        <span aria-hidden="true">&#9776;</span>
+        <span class="nav-menu-toggle-icon" aria-hidden="true"></span>
       </button>
 
-      <div class="nav-menu-panel" data-mobile-nav-target="menu">
-        <div class="navbar-links">
-          <%= link_to dashboard_path, class: "navbar-link #{'active' if controller_name == 'dashboard'}", data: { action: "click->mobile-nav#close" } do %>
-            <i class="fa-solid fa-grip"></i> Dashboard
-          <% end %>
-          <%= link_to projects_path, class: "navbar-link #{'active' if controller_name == 'projects'}", data: { action: "click->mobile-nav#close" } do %>
-            <i class="fa-solid fa-folder-open"></i> Projects
-          <% end %>
-          <%= link_to crew_members_path, class: "navbar-link #{'active' if controller_name == 'crew_members'}", data: { action: "click->mobile-nav#close" } do %>
-            <i class="fa-solid fa-users"></i> Crew
-          <% end %>
-          <% if authenticated? %>
-            <%= link_to invites_path, class: "navbar-link #{'active' if controller_name == 'invites'}", data: { action: "click->mobile-nav#close" } do %>
-              <i class="fa-solid fa-user-plus"></i> Team
+      <div id="app-navigation" class="nav-menu-panel" data-mobile-nav-target="menu" hidden aria-hidden="true">
+        <button
+          type="button"
+          class="nav-menu-overlay"
+          aria-label="Close navigation"
+          tabindex="-1"
+          data-action="click->mobile-nav#closeFromOverlay"
+          data-mobile-nav-target="overlay"></button>
+
+        <div class="nav-menu-drawer" data-mobile-nav-target="panel" role="dialog" aria-modal="true" aria-label="Primary navigation">
+          <div class="nav-menu-header">
+            <p class="nav-menu-title">Navigation</p>
+            <button
+              type="button"
+              class="nav-menu-close"
+              aria-label="Close navigation"
+              data-action="click->mobile-nav#close"
+              data-mobile-nav-target="closeButton focusable">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="navbar-links">
+            <%= link_to dashboard_path, class: "navbar-link #{'active' if controller_name == 'dashboard'}", data: { action: "click->mobile-nav#close", mobile_nav_target: "focusable" } do %>
+              <i class="fa-solid fa-grip"></i> Dashboard
             <% end %>
-            <%= link_to billing_path, class: "navbar-link #{'active' if controller_name == 'billings'}", data: { action: "click->mobile-nav#close" } do %>
-              <i class="fa-solid fa-credit-card"></i> Billing
+            <%= link_to projects_path, class: "navbar-link #{'active' if controller_name == 'projects'}", data: { action: "click->mobile-nav#close", mobile_nav_target: "focusable" } do %>
+              <i class="fa-solid fa-folder-open"></i> Projects
             <% end %>
-            <%= link_to profile_path, class: "navbar-link #{'active' if controller_name == 'profile'}", data: { action: "click->mobile-nav#close" } do %>
-              <i class="fa-solid fa-user-gear"></i> Profile
+            <%= link_to crew_members_path, class: "navbar-link #{'active' if controller_name == 'crew_members'}", data: { action: "click->mobile-nav#close", mobile_nav_target: "focusable" } do %>
+              <i class="fa-solid fa-users"></i> Crew
             <% end %>
-            <% if Current.manager&.super_admin? %>
-              <%= link_to admin_root_path, class: "navbar-link", data: { action: "click->mobile-nav#close" } do %>
-                <i class="fa-solid fa-shield-halved"></i> Admin
+            <% if authenticated? %>
+              <%= link_to invites_path, class: "navbar-link #{'active' if controller_name == 'invites'}", data: { action: "click->mobile-nav#close", mobile_nav_target: "focusable" } do %>
+                <i class="fa-solid fa-user-plus"></i> Team
+              <% end %>
+              <%= link_to billing_path, class: "navbar-link #{'active' if controller_name == 'billings'}", data: { action: "click->mobile-nav#close", mobile_nav_target: "focusable" } do %>
+                <i class="fa-solid fa-credit-card"></i> Billing
+              <% end %>
+              <%= link_to profile_path, class: "navbar-link #{'active' if controller_name == 'profile'}", data: { action: "click->mobile-nav#close", mobile_nav_target: "focusable" } do %>
+                <i class="fa-solid fa-user-gear"></i> Profile
+              <% end %>
+              <% if Current.manager&.super_admin? %>
+                <%= link_to admin_root_path, class: "navbar-link", data: { action: "click->mobile-nav#close", mobile_nav_target: "focusable" } do %>
+                  <i class="fa-solid fa-shield-halved"></i> Admin
+                <% end %>
               <% end %>
             <% end %>
-          <% end %>
-        </div>
+          </div>
 
-        <div class="navbar-actions">
-          <button class="theme-toggle" data-action="click->theme#toggle" data-theme-target="button" title="Toggle theme">
-            <span class="theme-toggle-icon" data-theme-target="icon"></span>
-          </button>
+          <div class="navbar-actions">
+            <button class="theme-toggle" data-action="click->theme#toggle" data-theme-target="button" data-mobile-nav-target="focusable" title="Toggle theme">
+              <span class="theme-toggle-icon" data-theme-target="icon"></span>
+            </button>
 
-          <% if authenticated? %>
-            <%= button_to "Sign Out", session_path, method: :delete, class: "btn btn-sm btn-secondary" %>
-          <% end %>
+            <% if authenticated? %>
+              <%= button_to "Sign Out", session_path, method: :delete, class: "btn btn-sm btn-secondary", data: { action: "click->mobile-nav#close", mobile_nav_target: "focusable" } %>
+            <% end %>
+          </div>
         </div>
       </div>
     </nav>

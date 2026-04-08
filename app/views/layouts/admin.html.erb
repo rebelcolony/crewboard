@@ -11,7 +11,7 @@
   </head>
 
   <body data-controller="theme">
-    <nav class="navbar" data-controller="mobile-nav" data-action="resize@window->mobile-nav#closeOnDesktop">
+    <nav class="navbar" data-controller="mobile-nav" data-action="resize@window->mobile-nav#closeOnDesktop turbo:before-cache@document->mobile-nav#closeBeforeCache">
       <div class="navbar-brand">
         <%= link_to "CrewControl", root_path, class: "navbar-logo" %>
         <span class="admin-badge">Admin</span>
@@ -21,23 +21,52 @@
         type="button"
         class="nav-menu-toggle"
         aria-label="Toggle navigation"
+        aria-controls="admin-navigation"
         aria-expanded="false"
         data-action="click->mobile-nav#toggle"
         data-mobile-nav-target="button">
-        <span aria-hidden="true">&#9776;</span>
+        <span class="nav-menu-toggle-icon" aria-hidden="true"></span>
       </button>
 
-      <div class="nav-menu-panel" data-mobile-nav-target="menu">
-        <div class="navbar-links">
-          <%= link_to "Back to App", root_path, class: "navbar-link", data: { action: "click->mobile-nav#close" } %>
-        </div>
+      <div id="admin-navigation" class="nav-menu-panel" data-mobile-nav-target="menu" hidden aria-hidden="true">
+        <button
+          type="button"
+          class="nav-menu-overlay"
+          aria-label="Close navigation"
+          tabindex="-1"
+          data-action="click->mobile-nav#closeFromOverlay"
+          data-mobile-nav-target="overlay"></button>
 
-        <div class="navbar-actions">
-          <button class="theme-toggle" data-action="click->theme#toggle" data-theme-target="button" title="Toggle theme">
-            <span class="theme-toggle-icon" data-theme-target="icon"></span>
-          </button>
+        <div class="nav-menu-drawer" data-mobile-nav-target="panel" role="dialog" aria-modal="true" aria-label="Admin navigation">
+          <div class="nav-menu-header">
+            <p class="nav-menu-title">Admin</p>
+            <button
+              type="button"
+              class="nav-menu-close"
+              aria-label="Close navigation"
+              data-action="click->mobile-nav#close"
+              data-mobile-nav-target="closeButton focusable">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
 
-          <%= button_to "Sign Out", session_path, method: :delete, class: "btn btn-sm btn-secondary" %>
+          <div class="navbar-links admin-mobile-links">
+            <%= link_to "Dashboard", admin_root_path, class: "navbar-link #{'active' if controller_name == 'dashboard'}", data: { action: "click->mobile-nav#close", mobile_nav_target: "focusable" } %>
+            <%= link_to "Accounts", admin_accounts_path, class: "navbar-link #{'active' if controller_name == 'accounts'}", data: { action: "click->mobile-nav#close", mobile_nav_target: "focusable" } %>
+            <%= link_to "Subscriptions", admin_subscriptions_path, class: "navbar-link #{'active' if controller_name == 'subscriptions'}", data: { action: "click->mobile-nav#close", mobile_nav_target: "focusable" } %>
+          </div>
+
+          <div class="navbar-links">
+            <%= link_to "Back to App", root_path, class: "navbar-link", data: { action: "click->mobile-nav#close", mobile_nav_target: "focusable" } %>
+          </div>
+
+          <div class="navbar-actions">
+            <button class="theme-toggle" data-action="click->theme#toggle" data-theme-target="button" data-mobile-nav-target="focusable" title="Toggle theme">
+              <span class="theme-toggle-icon" data-theme-target="icon"></span>
+            </button>
+
+            <%= button_to "Sign Out", session_path, method: :delete, class: "btn btn-sm btn-secondary", data: { action: "click->mobile-nav#close", mobile_nav_target: "focusable" } %>
+          </div>
         </div>
       </div>
     </nav>

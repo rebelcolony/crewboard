@@ -55,7 +55,7 @@
   <%= javascript_importmap_tags %>
 </head>
 <body class="marketing-body">
-  <nav class="marketing-nav" data-controller="mobile-nav" data-action="resize@window->mobile-nav#closeOnDesktop">
+  <nav class="marketing-nav" data-controller="mobile-nav" data-action="resize@window->mobile-nav#closeOnDesktop turbo:before-cache@document->mobile-nav#closeBeforeCache">
     <div class="marketing-nav-inner">
       <a href="<%= root_path %>" class="marketing-logo">CrewControl</a>
 
@@ -63,18 +63,41 @@
         type="button"
         class="nav-menu-toggle"
         aria-label="Toggle navigation"
+        aria-controls="marketing-navigation"
         aria-expanded="false"
         data-action="click->mobile-nav#toggle"
         data-mobile-nav-target="button">
-        <span aria-hidden="true">&#9776;</span>
+        <span class="nav-menu-toggle-icon" aria-hidden="true"></span>
       </button>
 
-      <div class="nav-menu-panel" data-mobile-nav-target="menu">
-        <div class="marketing-nav-links">
-          <a href="#features" data-action="click->mobile-nav#close">Features</a>
-          <a href="#pricing" data-action="click->mobile-nav#close">Pricing</a>
-          <%= link_to "Sign In", new_session_path, class: "btn btn-ghost", data: { action: "click->mobile-nav#close" } %>
-          <%= link_to "Get Started", new_registration_path, class: "btn btn-primary btn-sm", data: { action: "click->mobile-nav#close" } %>
+      <div id="marketing-navigation" class="nav-menu-panel" data-mobile-nav-target="menu" hidden aria-hidden="true">
+        <button
+          type="button"
+          class="nav-menu-overlay"
+          aria-label="Close navigation"
+          tabindex="-1"
+          data-action="click->mobile-nav#closeFromOverlay"
+          data-mobile-nav-target="overlay"></button>
+
+        <div class="nav-menu-drawer" data-mobile-nav-target="panel" role="dialog" aria-modal="true" aria-label="Site navigation">
+          <div class="nav-menu-header">
+            <p class="nav-menu-title">Menu</p>
+            <button
+              type="button"
+              class="nav-menu-close"
+              aria-label="Close navigation"
+              data-action="click->mobile-nav#close"
+              data-mobile-nav-target="closeButton focusable">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="marketing-nav-links">
+            <a href="#features" data-action="click->mobile-nav#close" data-mobile-nav-target="focusable">Features</a>
+            <a href="#pricing" data-action="click->mobile-nav#close" data-mobile-nav-target="focusable">Pricing</a>
+            <%= link_to "Sign In", new_session_path, class: "btn btn-ghost", data: { action: "click->mobile-nav#close", mobile_nav_target: "focusable" } %>
+            <%= link_to "Get Started", new_registration_path, class: "btn btn-primary btn-sm", data: { action: "click->mobile-nav#close", mobile_nav_target: "focusable" } %>
+          </div>
         </div>
       </div>
     </div>
