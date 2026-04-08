@@ -29,9 +29,16 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <%= f.label :project_id, "Assigned Project" %>
-    <%= f.collection_select :project_id, Current.account.projects.order(:name), :id, :name, { include_blank: "Unassigned" } %>
+  <div class="form-row">
+    <div class="form-group">
+      <%= f.label :project_id, "Assigned Project" %>
+      <%= f.collection_select :project_id, Current.account.projects.order(:name), :id, :name, { include_blank: "Unassigned" } %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :status, "Availability" %>
+      <%= f.select :status, [["Available", "available"], ["Leave / Unavailable", "on_leave"]] %>
+    </div>
   </div>
 
   <div class="form-group">

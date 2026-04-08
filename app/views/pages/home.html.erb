@@ -29,27 +29,22 @@
 <%# ── Hero ── %>
 <section class="hero">
   <div class="marketing-container">
-    <span class="hero-eyebrow">Team coordination software</span>
+    <span class="hero-eyebrow">COMMAND YOUR FLEET</span>
 
     <h1 class="hero-headline">
       Every team. Every project.<br>
-      One clear view.
+      <span class="hero-gradient">One clear view.</span>
     </h1>
 
     <p class="hero-subheadline">
-      CrewControl gives managers complete visibility over people, projects, and assignments
-      in real time — so you always know who’s working on what, where, and what needs attention next.
+      The centralized coordination hub for high-performance crews. Stop
+      guessing and start commanding with real-time visual operational
+      control.
     </p>
 
     <div class="hero-actions">
-      <%= link_to "Get Started Free", new_registration_path, class: "btn btn-primary btn-lg" %>
-      <%= link_to "See Features", "#features", class: "btn btn-ghost btn-lg" %>
-    </div>
-
-    <div class="hero-proof">
-      <span class="badge badge-accent">Live team allocation</span>
-      <span class="badge badge-success">Real-time visibility</span>
-      <span class="badge badge-secondary">Multi-project oversight</span>
+      <%= link_to "Launch Dashboard", new_registration_path, class: "btn btn-primary btn-lg" %>
+      <%= link_to "Watch Demo", "#features", class: "btn btn-ghost btn-lg" %>
     </div>
   </div>
 </section>
@@ -57,40 +52,49 @@
 <%# ── Problem / Before Section ── %>
 <section class="story-section story-section-chaos">
   <div class="marketing-container">
-    <div class="story-grid">
-      <div class="story-copy">
-        <span class="section-kicker">The problem</span>
-        <h2 class="section-title section-title-left">
-          Managing multiple teams shouldn’t feel like this
+    <div class="problem-grid">
+      <span class="problem-pill">THE PROBLEM</span>
+
+      <div class="problem-image-frame">
+        <%= image_tag "chaos-whiteboard.png",
+            alt: "Overwhelmed manager looking at a chaotic project coordination whiteboard",
+            class: "problem-image" %>
+      </div>
+
+      <div class="problem-content">
+        <h2 class="problem-title">
+          Managing multiple teams shouldn’t feel like this.
         </h2>
-        <p class="section-subtitle section-subtitle-left">
-          When team allocation lives across whiteboards, sticky notes, phone calls, spreadsheets,
-          and memory, project coordination becomes reactive, fragile, and hard to scale.
+        <p class="problem-description">
+          When your coordination relies on disconnected tools,
+          mission-critical details fall through the cracks. It’s time to
+          retire the legacy friction.
         </p>
 
-        <div class="story-points">
-          <div class="story-point">
+        <div class="problem-points">
+          <div class="problem-point">
+            <div class="problem-icon">
+              <i class="fas fa-database"></i>
+            </div>
             <strong>No single source of truth</strong>
             <p>Assignments change fast, but updates don’t always reach everyone who needs them.</p>
           </div>
 
-          <div class="story-point">
+          <div class="problem-point">
+            <div class="problem-icon">
+              <i class="fas fa-hourglass-end"></i>
+            </div>
             <strong>Too much manual coordination</strong>
             <p>Managers waste time chasing who’s available, who moved, and what project is now at risk.</p>
           </div>
 
-          <div class="story-point">
+          <div class="problem-point">
+            <div class="problem-icon">
+              <i class="fas fa-expand"></i>
+            </div>
             <strong>Visibility breaks as you grow</strong>
             <p>What works for two teams quickly breaks down when you’re coordinating five, ten, or more.</p>
           </div>
-        </div>
-      </div>
-
-      <div class="story-visual">
-        <div class="story-image-frame">
-          <%= image_tag "chaos-whiteboard.png",
-              alt: "Project manager facing a messy whiteboard while trying to coordinate multiple teams and projects",
-              class: "story-image" %>
         </div>
       </div>
     </div>
@@ -100,67 +104,7 @@
 <%# ── Solution Section ── %>
 <section class="story-section story-section-solution">
   <div class="marketing-container">
-    <div class="story-grid story-grid-reverse">
-      <div class="story-visual">
-        <div class="solution-preview card">
-          <div class="solution-preview-header">
-            <div>
-              <div class="solution-preview-title">Operations Dashboard</div>
-              <div class="solution-preview-subtitle">Live team allocation across projects</div>
-            </div>
-            <span class="badge badge-success">Live</span>
-          </div>
-
-          <div class="solution-project-list">
-            <div class="solution-project">
-              <div class="solution-project-top">
-                <strong>Project Atlas</strong>
-                <span class="badge badge-accent">On Track</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress-bar-fill progress-bar-success" style="width: 72%;"></div>
-              </div>
-              <div class="solution-avatars">
-                <span class="avatar avatar-sm"><span class="avatar-initials">AB</span></span>
-                <span class="avatar avatar-sm"><span class="avatar-initials">JT</span></span>
-                <span class="avatar avatar-sm"><span class="avatar-initials">MS</span></span>
-              </div>
-            </div>
-
-            <div class="solution-project">
-              <div class="solution-project-top">
-                <strong>North Terminal</strong>
-                <span class="badge badge-warning">Attention</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress-bar-fill progress-bar-warning" style="width: 41%;"></div>
-              </div>
-              <div class="solution-avatars">
-                <span class="avatar avatar-sm"><span class="avatar-initials">RK</span></span>
-                <span class="avatar avatar-sm"><span class="avatar-initials">PL</span></span>
-              </div>
-            </div>
-
-            <div class="solution-project">
-              <div class="solution-project-top">
-                <strong>Field Services East</strong>
-                <span class="badge badge-secondary">Planning</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress-bar-fill progress-bar-accent" style="width: 58%;"></div>
-              </div>
-              <div class="solution-avatars">
-                <span class="avatar avatar-sm"><span class="avatar-initials">DM</span></span>
-                <span class="avatar avatar-sm"><span class="avatar-initials">SC</span></span>
-                <span class="avatar avatar-sm"><span class="avatar-initials">JB</span></span>
-                <span class="avatar avatar-sm"><span class="avatar-initials">EL</span></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="story-copy">
+    <div class="story-copy">
         <span class="section-kicker">The solution</span>
         <h2 class="section-title section-title-left">
           Replace operational chaos with visual control
@@ -170,18 +114,23 @@
           and assignment changes — all in one place.
         </p>
 
+        <img src="<%= image_path('solution-ui.png') %>" alt="Solution UI" class="solution-ui-image" />
+
         <div class="story-points">
           <div class="story-point">
+            <i class="fa-solid fa-eye"></i>
             <strong>See everything at a glance</strong>
             <p>Projects, teams, progress, and status all appear in one clean operational view.</p>
           </div>
 
           <div class="story-point">
+            <i class="fa-solid fa-arrows-left-right"></i>
             <strong>Reassign people in seconds</strong>
             <p>Drag and drop team members between projects without the admin mess.</p>
           </div>
 
           <div class="story-point">
+            <i class="fa-solid fa-zap"></i>
             <strong>Make faster decisions</strong>
             <p>Spot bottlenecks, gaps, and overloaded teams before they become delays.</p>
           </div>
@@ -287,7 +236,7 @@
           <li>Up to 20 team members</li>
           <li>Community support</li>
         </ul>
-        <%= link_to "Get Started", new_registration_path, class: "btn btn-ghost btn-full" %>
+        <%= link_to "Free to Get Started", new_registration_path, class: "btn btn-ghost btn-full" %>
       </div>
 
       <div class="card pricing-card" data-usd="49" data-gbp="39" data-eur="46">
@@ -301,7 +250,7 @@
           <li>50 team members</li>
           <li>Email support</li>
         </ul>
-        <%= link_to "Get Started", new_registration_path, class: "btn btn-ghost btn-full" %>
+        <%= link_to "Free to Get Started", new_registration_path, class: "btn btn-ghost btn-full" %>
       </div>
 
       <div class="card pricing-card pricing-card-featured" data-usd="149" data-gbp="119" data-eur="141">
@@ -316,7 +265,7 @@
           <li>Unlimited team members</li>
           <li>Priority support</li>
         </ul>
-        <%= link_to "Get Started", new_registration_path, class: "btn btn-primary btn-full" %>
+        <%= link_to "Free to Get Started", new_registration_path, class: "btn btn-primary btn-full" %>
       </div>
 
       <div class="card pricing-card" data-usd="custom" data-gbp="custom" data-eur="custom">
