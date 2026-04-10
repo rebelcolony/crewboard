@@ -26,9 +26,15 @@ export default class extends Controller {
   }
 
   closeOnDesktop() {
+    this.syncOnResize()
+  }
+
+  syncOnResize() {
     if (window.innerWidth > 768) {
-      this.close()
+      this.open = false
     }
+
+    this.sync()
   }
 
   closeBeforeCache() {

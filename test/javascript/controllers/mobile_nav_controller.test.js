@@ -113,4 +113,37 @@ describe("MobileNavController", () => {
     expect(controller.buttonTarget.getAttribute("aria-expanded")).toBe("false")
     expect(document.body.classList.contains("nav-open")).toBe(false)
   })
+
+  it("re-hides the desktop navigation when resizing down to mobile", async () => {
+    setViewport(1280)
+
+    ;({ application, controller } = await connectStimulusController(
+      "mobile-nav",
+      MobileNavController,
+      `
+        <nav data-controller="mobile-nav">
+          <button data-mobile-nav-target="button">Menu</button>
+          <div data-mobile-nav-target="menu" hidden aria-hidden="true">
+            <button data-action="click->mobile-nav#closeFromOverlay" data-mobile-nav-target="overlay" tabindex="-1">Overlay</button>
+            <div data-mobile-nav-target="panel">
+              <a href="/dashboard" data-mobile-nav-target="focusable">Dashboard</a>
+            </div>
+          </div>
+        </nav>
+      `
+    ))
+
+    expect(controller.menuTarget.hidden).toBe(false)
+    expect(controller.menuTarget.getAttribute("aria-hidden")).toBe("false")
+
+    setViewport(375)
+    controller.syncOnResize()
+    await flushPromises()
+
+    expect(controller.open).toBe(false)
+    expect(controller.menuTarget.hidden).toBe(true)
+    expect(controller.menuTarget.getAttribute("aria-hidden")).toBe("true")
+    expect(controller.buttonTarget.getAttribute("aria-expanded")).toBe("false")
+    expect(document.body.classList.contains("nav-open")).toBe(false)
+  })
 })

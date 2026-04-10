@@ -59,7 +59,7 @@
   <%= javascript_importmap_tags %>
 </head>
 <body class="marketing-body">
-  <nav class="marketing-nav" data-controller="mobile-nav" data-action="resize@window->mobile-nav#closeOnDesktop turbo:before-cache@document->mobile-nav#closeBeforeCache">
+  <nav class="marketing-nav" data-controller="mobile-nav" data-action="resize@window->mobile-nav#syncOnResize turbo:before-cache@document->mobile-nav#closeBeforeCache">
     <div class="marketing-nav-inner">
       <a href="<%= root_path %>" class="marketing-logo">
         <%= image_tag "crew-control-logo.png", alt: "CrewControl", class: "logo-image" %>

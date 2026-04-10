@@ -11,7 +11,7 @@
   </head>
 
   <body data-controller="theme">
-    <nav class="navbar" data-controller="mobile-nav" data-action="resize@window->mobile-nav#closeOnDesktop turbo:before-cache@document->mobile-nav#closeBeforeCache">
+    <nav class="navbar" data-controller="mobile-nav" data-action="resize@window->mobile-nav#syncOnResize turbo:before-cache@document->mobile-nav#closeBeforeCache">
       <div class="navbar-brand">
         <%= link_to "CrewControl", root_path, class: "navbar-logo" %>
         <span class="admin-badge">Admin</span>

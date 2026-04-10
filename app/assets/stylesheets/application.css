@@ -1280,7 +1280,7 @@ a:hover { text-decoration: underline; }
   }
 
   .nav-menu-overlay {
-    display: block;
+    display: none;
     position: absolute;
     inset: 0;
     border: 0;
@@ -1305,10 +1305,16 @@ a:hover { text-decoration: underline; }
     transform: translateX(100%);
     transition: transform var(--transition);
     overflow-y: auto;
+    visibility: hidden;
+  }
+
+  .nav-menu-panel.is-open .nav-menu-overlay {
+    display: block;
   }
 
   .nav-menu-panel.is-open .nav-menu-drawer {
     transform: translateX(0);
+    visibility: visible;
   }
 
   .nav-menu-header {
