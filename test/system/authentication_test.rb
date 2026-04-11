@@ -16,7 +16,8 @@ class AuthenticationTest < ApplicationSystemTestCase
   test "sign out redirects to login" do
     system_sign_in
     click_on "Sign Out"
-    assert_selector "h1", text: "CrewControl"
+    assert_selector "img.auth-logo[alt='CrewControl']"
+    assert_text "Sign in to your account"
     assert_selector "input[name=email_address]"
   end
 end

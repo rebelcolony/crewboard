@@ -11,7 +11,7 @@ class DashboardTest < ApplicationSystemTestCase
   end
 
   test "crew avatars are rendered on project cards" do
-    assert_selector ".avatar img", minimum: 1
+    assert_selector ".project-card-crew .avatar", minimum: 1
   end
 
   test "unassigned crew bar is visible" do

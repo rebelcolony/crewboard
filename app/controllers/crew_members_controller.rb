@@ -36,13 +36,7 @@ class CrewMembersController < ApplicationController
     respond_to do |format|
       if @crew_member.update(crew_member_params)
         format.html { redirect_to crew_members_path, notice: "Crew member updated." }
-        format.turbo_stream do
-        if request.content_type.include?("application/json")
-          render_reassignment
-        else
-          redirect_to crew_members_path, notice: "Crew member updated."
-        end
-      end
+        format.turbo_stream { render_reassignment }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.turbo_stream { head :unprocessable_entity }

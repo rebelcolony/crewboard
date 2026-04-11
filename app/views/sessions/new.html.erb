@@ -3,14 +3,6 @@
     <%= image_tag "crew-control-logo.png", alt: "CrewControl", class: "auth-logo" %>
     <p class="auth-subtitle">Sign in to your account</p>
 
-    <% if flash[:alert] %>
-      <div class="alert alert-danger"><%= flash[:alert] %></div>
-    <% end %>
-
-    <% if flash[:notice] %>
-      <div class="alert alert-success"><%= flash[:notice] %></div>
-    <% end %>
-
     <%= form_with url: session_path, class: "auth-form" do |f| %>
       <div class="form-group">
         <%= f.label :email_address, "Email" %>

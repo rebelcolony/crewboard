@@ -51,13 +51,19 @@
   <%= javascript_importmap_tags %>
 </head>
 <body class="auth-body">
-  <% if flash[:notice] %>
-    <div class="alert alert-success"><%= flash[:notice] %></div>
-  <% end %>
-  <% if flash[:alert] %>
-    <div class="alert alert-danger"><%= flash[:alert] %></div>
-  <% end %>
+  <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+    <% if flash[:notice] %>
+      <div class="auth-container" style="margin-bottom: 0;">
+        <div class="alert alert-success" style="text-align: center;"><%= flash[:notice] %></div>
+      </div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="auth-container" style="margin-bottom: 0;">
+        <div class="alert alert-danger" style="text-align: center;"><%= flash[:alert] %></div>
+      </div>
+    <% end %>
 
-  <%= yield %>
+    <%= yield %>
+  </div>
 </body>
 </html>

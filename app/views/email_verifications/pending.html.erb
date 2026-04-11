@@ -1,13 +1,5 @@
 <div class="auth-container">
   <div style="text-align: center;">
-    <% if flash[:alert] %>
-      <div class="alert alert-danger" style="margin-bottom: 1.5rem;"><%= flash[:alert] %></div>
-    <% end %>
-
-    <% if flash[:notice] %>
-      <div class="alert alert-success" style="margin-bottom: 1.5rem;"><%= flash[:notice] %></div>
-    <% end %>
-
     <h1 style="margin-bottom: 0.5rem;">Verify Your Email</h1>
     <p style="color: var(--color-text-secondary); margin-bottom: 2rem;">
       We've sent a verification link to <strong><%= @manager.email_address %></strong>

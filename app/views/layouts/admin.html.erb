@@ -65,7 +65,7 @@
               <span class="theme-toggle-icon" data-theme-target="icon"></span>
             </button>
 
-            <%= button_to "Sign Out", session_path, method: :delete, class: "btn btn-sm btn-secondary", data: { action: "click->mobile-nav#close", mobile_nav_target: "focusable" } %>
+            <%= button_to "Sign Out", session_path, method: :delete, class: "btn btn-sm btn-secondary", data: { turbo: false, action: "click->mobile-nav#close", mobile_nav_target: "focusable" } %>
           </div>
         </div>
       </div>

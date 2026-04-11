@@ -53,8 +53,8 @@ class CheckoutsController < ApplicationController
 
   def plans
     {
-      "starter" => Rails.application.credentials.dig(:stripe, :starter_price_id),
-      "pro" => Rails.application.credentials.dig(:stripe, :pro_price_id)
+      "starter" => Rails.application.credentials.dig(:stripe, :starter_price_id) || ENV["STRIPE_STARTER_PRICE_ID"],
+      "pro" => Rails.application.credentials.dig(:stripe, :pro_price_id) || ENV["STRIPE_PRO_PRICE_ID"]
     }
   end
 end

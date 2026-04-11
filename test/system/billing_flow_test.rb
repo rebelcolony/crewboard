@@ -25,12 +25,17 @@ class BillingFlowTest < ApplicationSystemTestCase
   end
 
   test "billing page shows subscription dates, cards, and payment history" do
+    current_period_start = 10.days.ago.beginning_of_day
+    current_period_end = 20.days.from_now.beginning_of_day
+    trial_ends_at = 4.days.from_now.beginning_of_day
+    ends_at = 29.days.from_now.beginning_of_day
+
     subscribe_account_to!(
       "starter",
-      current_period_start: Time.zone.local(2026, 3, 1),
-      current_period_end: Time.zone.local(2026, 4, 1),
-      trial_ends_at: Time.zone.local(2026, 3, 15),
-      ends_at: Time.zone.local(2026, 4, 10)
+      current_period_start: current_period_start,
+      current_period_end: current_period_end,
+      trial_ends_at: trial_ends_at,
+      ends_at: ends_at
     )
 
     payment_method = stub(
@@ -67,10 +72,10 @@ class BillingFlowTest < ApplicationSystemTestCase
     system_sign_in
     click_on "Billing"
 
-    assert_text "Mar 01, 2026"
-    assert_text "Apr 01, 2026"
-    assert_text "Mar 15, 2026"
-    assert_text "Apr 10, 2026"
+    assert_text current_period_start.strftime("%b %d, %Y")
+    assert_text current_period_end.strftime("%b %d, %Y")
+    assert_text trial_ends_at.strftime("%b %d, %Y")
+    assert_text ends_at.strftime("%b %d, %Y")
     assert_text "4242"
     assert_text "12/2030"
     assert_text "1881"

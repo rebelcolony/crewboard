@@ -14,6 +14,22 @@ class InviteAcceptanceTest < ApplicationSystemTestCase
     assert_text "Unassigned Crew"
   end
 
+  test "invitee sees validation feedback when the password is too short" do
+    invite = invites(:pending_invite)
+
+    visit accept_invite_path(token: invite.token)
+
+    fill_in "Password", with: "short"
+    fill_in "Confirm Password", with: "short"
+    click_button "Join Team"
+
+    assert_current_path accept_invite_path(token: invite.token)
+    assert_text "Password is too short (minimum is 8 characters)"
+    assert_selector "input[type='email'][value='#{invite.email}'][disabled]"
+    assert_not invite.reload.accepted?
+    assert_nil Manager.find_by(email_address: invite.email)
+  end
+
   test "invalid invite token redirects to sign in with an alert" do
     visit accept_invite_path(token: "bogus")
 

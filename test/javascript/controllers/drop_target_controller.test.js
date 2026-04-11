@@ -67,7 +67,7 @@ describe("DropTargetController", () => {
         "X-CSRF-Token": "csrf-123",
         "Accept": "text/vnd.turbo-stream.html"
       },
-      body: JSON.stringify({ crew_member: { project_id: "12" } })
+      body: JSON.stringify({ crew_member: { project_id: "12", status: "available" } })
     })
     expect(renderStreamMessage).toHaveBeenCalledWith("<turbo-stream action='replace'></turbo-stream>")
   })

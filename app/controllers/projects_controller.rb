@@ -17,7 +17,7 @@ class ProjectsController < ApplicationController
       redirect_to pricing_path, alert: "You've reached the #{Current.account.project_limit}-project limit on your plan. Upgrade to add more."
       return
     end
-    @project = Project.new
+    @project = Project.new(start_date: Date.today, target_end_date: 1.month.from_now.to_date)
   end
 
   def create

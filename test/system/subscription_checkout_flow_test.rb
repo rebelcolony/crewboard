@@ -7,6 +7,15 @@ class SubscriptionCheckoutFlowTest < ApplicationSystemTestCase
     Rails.application.credentials.stubs(:dig).with(:stripe, :pro_price_id).returns("price_pro_test")
   end
 
+  test "visitor can move from pricing into the signup flow" do
+    visit pricing_path
+
+    click_link "Get Started", match: :first
+
+    assert_current_path new_registration_path
+    assert_text "Create your account"
+  end
+
   test "free user can start starter checkout from pricing" do
     checkout_params = nil
     processor = build_processor(
@@ -82,6 +91,37 @@ class SubscriptionCheckoutFlowTest < ApplicationSystemTestCase
     assert_text "Plan changed to Pro."
     assert_text(/pro/i)
     assert_equal "price_pro_test", stripe_update_args[:attributes][:plan]
+    assert_equal false, stripe_update_args[:attributes][:cancel_at_period_end]
+    assert_equal "always_invoice", stripe_update_args[:attributes][:proration_behavior]
+  end
+
+  test "pro user can downgrade to starter from pricing with the starter price id" do
+    subscribe_account_to!("pro")
+    stripe_update_args = nil
+    fake_invoice = OpenStruct.new(payment_intent: nil)
+    fake_stripe_sub = OpenStruct.new(latest_invoice: fake_invoice)
+    ::Stripe::Subscription.stubs(:update).with do |processor_id, attributes, stripe_options|
+      stripe_update_args = {
+        processor_id: processor_id,
+        attributes: attributes,
+        stripe_options: stripe_options
+      }
+      true
+    end.returns(fake_stripe_sub)
+    Pay::Subscription.any_instance.stubs(:sync!).returns(true)
+
+    system_sign_in
+    assert_current_path dashboard_path
+    visit pricing_path
+    assert_text "Current Plan"
+    assert_button "Downgrade to Starter"
+
+    click_button "Downgrade to Starter"
+
+    assert_current_path billing_path
+    assert_text "Plan changed to Starter."
+    assert_text(/starter/i)
+    assert_equal "price_starter_test", stripe_update_args[:attributes][:plan]
     assert_equal false, stripe_update_args[:attributes][:cancel_at_period_end]
     assert_equal "always_invoice", stripe_update_args[:attributes][:proration_behavior]
   end

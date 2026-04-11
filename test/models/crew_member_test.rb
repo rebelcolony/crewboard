@@ -22,15 +22,12 @@ class CrewMemberTest < ActiveSupport::TestCase
     assert_equal "C", member.initials
   end
 
-  test "avatar_url returns pravatar URL based on email" do
-    url = crew_members(:callum).avatar_url
-    assert_match %r{https://i\.pravatar\.cc/80\?u=}, url
-    assert_match(/[a-f0-9]{32}/, url)
+  test "avatar_url returns nil when remote avatars are disabled" do
+    assert_nil crew_members(:callum).avatar_url
   end
 
-  test "avatar_url accepts custom size" do
-    url = crew_members(:callum).avatar_url(size: 150)
-    assert_match %r{https://i\.pravatar\.cc/150\?u=}, url
+  test "avatar_url ignores custom size when avatars are disabled" do
+    assert_nil crew_members(:callum).avatar_url(size: 150)
   end
 
   test "assigned? returns true when project present" do

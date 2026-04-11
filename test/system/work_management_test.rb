@@ -70,17 +70,17 @@ class WorkManagementTest < ApplicationSystemTestCase
     system_sign_in
 
     assert_text "Unassigned Crew (1)"
-    assert_selector "#unassigned-crew img[alt='Isla Campbell']"
+    assert_selector "#unassigned-crew .avatar[title='Isla Campbell — NDT Technician']"
 
     drag_crew_member_to_project(crew_members(:unassigned_isla), projects(:forties))
 
     assert_text "Unassigned Crew (0)"
     assert_text "All crew members assigned"
-    assert_no_selector "#unassigned-crew img[alt='Isla Campbell']"
+    assert_no_selector "#unassigned-crew .avatar[title='Isla Campbell — NDT Technician']"
 
     within "turbo-frame#project_#{projects(:forties).id}" do
-      assert_selector "img[alt='Isla Campbell']"
-      assert_selector "img[alt='Callum MacLeod']"
+      assert_selector ".avatar[title='Isla Campbell — NDT Technician']"
+      assert_selector ".avatar[title='Callum MacLeod — Lead Inspector']"
     end
   end
 
