@@ -16,6 +16,48 @@ class SubscriptionCheckoutFlowTest < ApplicationSystemTestCase
     assert_text "Create your account"
   end
 
+  test "newly verified user can move from signup through billing into starter checkout" do
+    checkout_params = nil
+    processor = build_processor(
+      subscription_name: nil,
+      checkout_url: billing_url
+    ) do |params|
+      checkout_params = params
+    end
+    Account.any_instance.stubs(:payment_processor).returns(processor)
+
+    visit pricing_path
+    click_link "Get Started", match: :first
+
+    fill_in "Company Name", with: "Journey Energy Ltd"
+    fill_in "Email", with: "journey-signup@example.com"
+    fill_in "Password", with: "password123", match: :first
+    fill_in "Confirm Password", with: "password123"
+    click_on "Create Account"
+
+    assert_current_path verify_email_pending_path
+    assert_text "journey-signup@example.com"
+
+    manager = Manager.find_by!(email_address: "journey-signup@example.com")
+    visit verify_email_path(token: manager.reload.email_verification_token)
+
+    assert_current_path dashboard_path
+    assert_text "Email verified! Welcome to CrewControl!"
+
+    click_on "Billing"
+    assert_text(/free/i)
+    click_on "Upgrade"
+
+    assert_current_path pricing_path
+    all(:button, "Subscribe").first.click
+
+    assert_current_path billing_path
+    assert_text "Current Plan"
+    assert_equal "subscription", checkout_params[:mode]
+    assert_equal "price_starter_test", checkout_params[:line_items]
+    assert_equal "starter", checkout_params.dig(:subscription_data, :metadata, :pay_name)
+  end
+
   test "free user can start starter checkout from pricing" do
     checkout_params = nil
     processor = build_processor(
